@@ -682,6 +682,7 @@
       <div class="hero-actions">
         <a class="btn" id="mailBtn" href="#">Email me</a>
         <a class="btn ghost" href="https://www.linkedin.com/in/divya-b-35a912205/" target="_blank" rel="noopener">View LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/DivyaBiradar54" target="_blank" rel="noopener">View GitHub</a>
         <button class="btn ghost" type="button" id="copy">Copy email address</button>
       </div>
     </section>
@@ -690,7 +691,7 @@
   <footer>
     <span>Divya Biradar, Houston, Texas</span>
     <span class="tip">Press <kbd>/</kbd> anywhere to ask me a question</span>
-    <a href="admin.html">Owner dashboard</a>
+    <span><a href="https://github.com/DivyaBiradar54" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/divya-b-35a912205/" target="_blank" rel="noopener">LinkedIn</a> · <a href="admin.html">Owner dashboard</a></span>
   </footer>
 </div>
 
@@ -994,8 +995,10 @@ const answers = [
     a: "I'm based in Houston, Texas, and I'm open to relocation. I'm happy to discuss remote, hybrid or on-site arrangements directly." },
   { k: [/looking for/, /open to/, /kind of (role|job|work)/, /roles?\b/, /positions?/, /opportunit/, /hiring/, /interested in/, /next (job|role|step)/, /full.?time/, /contract/],
     a: "I'm open to AI Data Engineer, Data Engineer, Data Analyst and BI roles, and I'm open to relocation. For contract or full-time details, please email me." },
+  { k: [/github/, /\bgit hub\b/, /repositor/, /\brepos?\b/, /source code/, /portfolio code/],
+    a: "You can see my code on GitHub at github.com/DivyaBiradar54. The link is in the contact section at the bottom of this page." },
   { k: [/contact/, /e-?mail/, /reach/, /linkedin/, /get in touch/, /phone/, /\bcall\b/, /number/, /connect/, /interview/, /schedule/, /meet/],
-    a: "The best way to reach me is by email or LinkedIn. Both buttons are at the bottom of this page, and I reply quickly." },
+    a: "The best way to reach me is by email or LinkedIn, and you can see my code on GitHub. All three links are at the bottom of this page, and I reply quickly." },
   { k: [/resume/, /\bcv\b/, /download/],
     a: "This page is my resume in interactive form. If you'd like the PDF, email me and I'll send it right away." },
   { k: [/mentor/, /\blead/, /team/, /collaborat/, /stakeholder/, /communicat/, /manage/],
