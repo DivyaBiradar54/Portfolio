@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="crimson">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divya Biradar | AI Data Engineer</title>
+<meta name="description" content="Divya Biradar is an AI Data Engineer who builds data pipelines, Spark applications and the data foundation behind AI assistants. Ask her portfolio a question.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+  :root {
+    --bg: #F4F0FF; --surface: #FFFFFF; --ink: #1E1B4B; --muted: #5A5788; --line: #DAD3F7;
+    --accent: #6D28D9; --accent-2: #DB2777; --accent-soft: #EDE4FF;
+    --hit: #B45309; --hit-soft: #FDEFC8;
+    --band: linear-gradient(125deg, #5B21B6 0%, #9D2FBF 48%, #E0457B 100%);
+    --band-ink: #FFFFFF; --me: #6D28D9; --me-ink: #FFFFFF;
+  }
+  :root {
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; transition: background .3s, color .3s; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; border-radius: 4px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* Coloured band: top bar + hero */
+  .band { background: var(--band); color: var(--band-ink); padding-bottom: 56px; }
+  .band :focus-visible { outline-color: #fff; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; gap: 14px; flex-wrap: wrap; }
+  .top-name { font-family: var(--display); font-weight: 700; font-size: 1.15rem; }
+  .top nav { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .top nav a { color: var(--band-ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; opacity: .92; }
+  .top nav a:hover { text-decoration: underline; opacity: 1; }
+
+  .hero { display: grid; grid-template-columns: 1fr minmax(340px, 460px); gap: 48px; align-items: center; padding-top: 34px; }
+  .hero h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.2rem, 5.2vw, 4rem); line-height: 1.03; letter-spacing: -0.025em; margin: 0 0 20px; }
+  .hero p { margin: 0 0 12px; font-size: 1.12rem; max-width: 52ch; opacity: .95; }
+  .hero .where { font-weight: 600; font-size: 1rem; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .btn { display: inline-block; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; padding: 11px 20px; border-radius: 12px; border: 2px solid var(--accent); background: var(--accent); color: var(--surface); transition: transform .12s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .band .btn { background: #fff; border-color: #fff; color: #1E1B4B; }
+  .band .btn.ghost { background: transparent; color: #fff; }
+
+  /* Chat bot */
+  .bot { background: var(--surface); color: var(--ink); border-radius: 22px; padding: 18px; box-shadow: 0 24px 60px -20px rgba(20, 10, 60, .55); }
+  .bot-head { display: flex; gap: 14px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .avatar { width: 104px; flex: none; aspect-ratio: 300 / 340; perspective: 600px; }
+  .sway { width: 100%; height: 100%; transform-style: preserve-3d; animation: sway 7s ease-in-out infinite; }
+  @keyframes sway { 0%, 100% { transform: rotateY(-10deg); } 50% { transform: rotateY(10deg); } }
+  .rig { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform .18s ease-out; }
+  .rig svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .z-disc { transform: translateZ(-40px); } .z-back { transform: translateZ(-16px); } .z-body { transform: translateZ(-5px); }
+  .z-head { --z: 8px; transform: translateZ(8px); } .z-face { --z: 20px; transform: translateZ(20px); } .z-hair { --z: 28px; transform: translateZ(28px); }
+  .talking .z-head, .talking .z-face, .talking .z-hair { animation: nod 1.3s ease-in-out infinite; }
+  @keyframes nod { 0%, 100% { transform: translateZ(var(--z)) translateY(0); } 50% { transform: translateZ(var(--z)) translateY(3px); } }
+  .eyes { transform-box: fill-box; transform-origin: center; animation: blink 4.6s infinite; }
+  @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.08); } }
+  .mouth { transform-box: fill-box; transform-origin: center; }
+  .talking .mouth { animation: talk .34s ease-in-out infinite alternate; }
+  @keyframes talk { from { transform: scale(0.8, 0.7); } to { transform: scale(1.05, 3.2); } }
+  .bot-id { flex: 1; min-width: 0; }
+  .bot-id strong { font-family: var(--display); font-size: 1.15rem; display: block; line-height: 1.2; }
+  .bot-id .state { color: var(--muted); font-size: 0.9rem; display: flex; align-items: center; gap: 7px; }
+  .bot-id .state::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #22A06B; flex: none; }
+  .talking .bot-id .state::before { background: var(--accent-2); animation: pulse .8s ease-in-out infinite alternate; }
+  @keyframes pulse { to { transform: scale(1.5); opacity: .6; } }
+  .bot-tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .mini { font: inherit; font-size: 0.85rem; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer; background: var(--accent-soft); color: var(--ink); border: 1px solid transparent; }
+  .mini:hover { border-color: var(--accent); }
+  .mini[aria-pressed="false"] { background: transparent; border-color: var(--line); color: var(--muted); }
+  .voice-pick { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 0.85rem; color: var(--muted); }
+  .voice-pick select { font: inherit; font-size: 0.85rem; flex: 1; min-width: 0; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+
+  .chat { display: flex; flex-direction: column; gap: 10px; height: 270px; overflow-y: auto; padding: 14px 4px; scroll-behavior: smooth; }
+  .msg { max-width: 86%; padding: 10px 14px; border-radius: 16px; font-size: 0.98rem; line-height: 1.5; animation: pop .22s ease-out; overflow-wrap: anywhere; }
+  @keyframes pop { from { transform: translateY(6px) scale(.97); opacity: 0; } }
+  .msg.bot-msg { align-self: flex-start; background: var(--accent-soft); border-bottom-left-radius: 5px; }
+  .msg.me { align-self: flex-end; background: var(--me); color: var(--me-ink); border-bottom-right-radius: 5px; }
+  .typing { display: inline-flex; gap: 5px; align-items: center; height: 1.5em; }
+  .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: dots 1s infinite ease-in-out; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes dots { 0%, 80%, 100% { transform: translateY(0); opacity: .45; } 40% { transform: translateY(-5px); opacity: 1; } }
+  .sugs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 10px; scrollbar-width: thin; }
+  .sug { flex: none; font: inherit; font-size: 0.88rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; cursor: pointer; background: var(--surface); color: var(--accent); border: 1.5px solid var(--accent); }
+  .sug:hover { background: var(--accent); color: var(--surface); }
+  .ask { display: flex; gap: 8px; }
+  .ask input { flex: 1; min-width: 0; font: inherit; padding: 11px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+  .ask input::placeholder { color: var(--muted); }
+  .hero .bot-note { color: var(--muted); font-size: 0.8rem; margin: 10px 2px 0; opacity: 1; }
+  .hero > * { min-width: 0; }
+  .band .bot .btn { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+
+  /* Sections */
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -0.015em; line-height: 1.1; margin: 0 0 8px; }
+  .lede { color: var(--muted); margin: 0 0 28px; max-width: 64ch; }
+  section { padding: 48px 0; }
+
+  .pipeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 24px; }
+  .pipeline::before { content: ""; position: absolute; left: 10%; right: 10%; top: 19px; height: 4px; background: var(--line); border-radius: 2px; }
+  .pipeline::after { content: ""; position: absolute; left: 10%; top: 19px; height: 4px; width: 80%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 2px; transform-origin: left center; transform: scaleX(0); animation: flow 1.6s 0.2s cubic-bezier(.6,0,.2,1) forwards; }
+  @keyframes flow { to { transform: scaleX(1); } }
+  .node { position: relative; z-index: 1; background: none; border: 0; padding: 0 4px 10px; cursor: pointer; font: inherit; color: var(--muted); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: opacity .2s; }
+  .node .dot { width: 42px; height: 42px; border-radius: 50%; background: var(--surface); border: 4px solid var(--accent); transition: transform .2s, background .2s, border-color .2s; }
+  .node .co { font-family: var(--display); font-weight: 600; color: var(--ink); line-height: 1.2; font-size: 1rem; }
+  .node .yrs { font-size: 0.85rem; }
+  .node:hover .dot { transform: scale(1.12); }
+  .node[aria-selected="true"] .dot { background: var(--accent); transform: scale(1.2); box-shadow: 0 0 0 7px var(--accent-soft); }
+  .node.hit .dot { border-color: var(--hit); background: var(--hit-soft); }
+  .node.hit[aria-selected="true"] .dot { background: var(--hit); box-shadow: 0 0 0 7px var(--hit-soft); }
+  .node.dim { opacity: 0.38; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 28px 30px; border-top: 5px solid var(--accent); }
+  .panel h3 { font-family: var(--display); font-size: 1.45rem; margin: 0; line-height: 1.2; }
+  .panel .meta { color: var(--muted); margin: 4px 0 16px; }
+  .panel ul { margin: 0 0 18px; padding-left: 1.15em; max-width: 76ch; }
+  .panel li { margin-bottom: 8px; }
+  .panel .used { color: var(--muted); font-size: 0.92rem; margin: 0 0 8px; }
+  .panel-actions { margin-top: 18px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font: inherit; font-size: 0.92rem; font-weight: 500; padding: 6px 13px; border-radius: 999px; cursor: pointer; background: var(--surface); color: var(--ink); border: 1px solid var(--line); transition: background .15s, border-color .15s, transform .12s; }
+  .chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .chip[aria-pressed="true"] { background: var(--hit-soft); border-color: var(--hit); }
+  .skillgroups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .skillgroups > div { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+  .skillgroups h3 { font-family: var(--display); font-size: 1.1rem; margin: 0 0 12px; }
+  .status { margin: 0 0 22px; padding: 12px 16px; border-radius: 12px; background: var(--accent-soft); min-height: 50px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .status button { font: inherit; font-size: 0.9rem; font-weight: 600; background: none; border: 0; color: var(--accent); cursor: pointer; text-decoration: underline; padding: 2px 4px; }
+  .also { color: var(--muted); margin: 22px 0 0; max-width: 76ch; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .two h3 { font-family: var(--display); font-size: 1.1rem; margin: 0 0 12px; }
+  .plain { list-style: none; margin: 0; padding: 0; }
+  .plain li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .plain li:last-child { border-bottom: 1px solid var(--line); }
+  .plain strong { display: block; font-weight: 600; }
+  .plain span { color: var(--muted); font-size: 0.95rem; }
+
+  .contact { background: var(--band); color: var(--band-ink); border-radius: 26px; padding: 44px 40px; margin: 20px 0 40px; }
+  .contact h2 { font-size: clamp(1.8rem, 4.2vw, 2.9rem); max-width: 18ch; margin-bottom: 12px; }
+  .contact p { margin: 0; max-width: 60ch; opacity: .95; }
+  .contact .btn { background: #fff; border-color: #fff; color: #1E1B4B; }
+  .contact .btn.ghost { background: transparent; color: #fff; }
+  .contact :focus-visible { outline-color: #fff; }
+  footer { color: var(--muted); font-size: 0.88rem; padding: 0 0 36px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 30px; }
+  }
+  @media (max-width: 760px) {
+    .pipeline { grid-template-columns: 1fr; gap: 4px; }
+    .pipeline::before, .pipeline::after { left: 19px; right: auto; top: 20px; bottom: 30px; width: 4px; height: auto; }
+    .pipeline::after { transform-origin: top center; transform: scaleY(0); height: calc(100% - 50px); background: linear-gradient(180deg, var(--accent), var(--accent-2)); }
+    @keyframes flow { to { transform: scaleY(1); } }
+    .node { flex-direction: row; text-align: left; padding: 6px 0; gap: 14px; }
+    .node .dot { flex: none; }
+    .skillgroups, .two { grid-template-columns: 1fr; }
+    .panel { padding: 22px 20px; }
+    .contact { padding: 32px 24px; }
+    .avatar { width: 84px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .pipeline::after { animation: none; transform: none; }
+    .sway, .eyes, .msg, .typing i, .talking .z-head, .talking .z-face, .talking .z-hair, .talking .bot-id .state::before { animation: none; }
+    .rig, .btn, .chip, .node, .node .dot { transition: none; }
+  }
+
+  /* ---- Crimson theme and cursor-tracking hero ---- */
+  [data-theme="crimson"] {
+    --bg: #FFF4F2; --surface: #FFFFFF; --ink: #2A0E13; --muted: #7A4A52; --line: #F2CFCC;
+    --accent: #C1121F; --accent-2: #C02A78; --accent-soft: #FFE2DE;
+    --hit: #9A5B00; --hit-soft: #FDEFC8;
+    --band: linear-gradient(115deg, #C20E1E 0%, #CC1436 48%, #BE2A78 100%);
+    --band-ink: #FFFFFF; --me: #C1121F; --me-ink: #FFFFFF;
+  }
+  .band { padding-bottom: 0; overflow: hidden; }
+  .pillnav { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 6px 8px; gap: 4px !important; }
+  .pillnav a { padding: 5px 14px; border-radius: 999px; }
+  .pillnav a:hover { background: rgba(255,255,255,.22); text-decoration: none !important; }
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: end; padding-top: 18px; min-height: min(78vh, 680px); }
+  .hero-text { align-self: center; padding-bottom: 48px; }
+  .hero h1 { margin: 0 0 6px; max-width: none; font-size: 1rem; letter-spacing: 0; line-height: 1; }
+  .hero h1 .hi { display: block; font-family: var(--body); font-weight: 600; font-size: 1.05rem; letter-spacing: .04em; margin-bottom: 4px; }
+  .hero h1 .script { display: block; font-family: "Kaushan Script", "Brush Script MT", cursive; font-weight: 400; font-size: clamp(4.2rem, 11vw, 8rem); line-height: 1.05; text-shadow: 0 6px 0 rgba(60, 0, 10, .22); transform: rotate(-4deg); transform-origin: left bottom; }
+  .hero .tag { font-family: var(--display); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.15; margin: 14px 0 12px; max-width: 20ch; opacity: 1; }
+  .band .btn { border-radius: 999px; }
+  .avatar { width: min(100%, 500px); justify-self: center; perspective: 900px; margin-bottom: -6px; }
+  .avatar .sway { animation-duration: 6s; }
+  .avatar.tracking .sway { animation: none; }
+  .z-disc { transform: translateZ(-90px); } .z-back { transform: translateZ(-34px); } .z-body { transform: translateZ(-10px); }
+  .z-head { --z: 18px; transform: translateZ(18px); } .z-face { --z: 46px; transform: translateZ(46px); } .z-hair { --z: 62px; transform: translateZ(62px); }
+  .z-disc circle:first-of-type { fill: rgba(255,255,255,.16); }
+  .pupils { transform: translate(var(--px, 0px), var(--py, 0px)); transition: transform .12s ease-out; }
+  .avatar .looks { position: relative; width: 100%; height: 100%; }
+  .avatar .looks img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0; }
+  .avatar .looks img.on { opacity: 1; }
+
+  /* Floating chat */
+  .fab { position: fixed; right: 22px; bottom: 22px; z-index: 40; font: inherit; font-weight: 700; padding: 14px 22px; border-radius: 999px; border: 0; cursor: pointer; background: var(--accent); color: #fff; box-shadow: 0 12px 30px -8px rgba(40, 0, 10, .6); }
+  .fab:hover { transform: translateY(-2px); }
+  .bot { position: fixed; right: 22px; bottom: 22px; z-index: 50; width: min(400px, calc(100vw - 20px)); max-height: calc(100vh - 30px); display: flex; flex-direction: column; border: 1px solid var(--line); animation: rise .22s ease-out; }
+  @keyframes rise { from { transform: translateY(16px); opacity: 0; } }
+  .bot .bot-head { align-items: flex-start; }
+  .bot .bot-tools { margin-top: 0; justify-content: flex-end; }
+  .bot .chat { height: auto; flex: 1 1 280px; min-height: 140px; max-height: 300px; }
+  .bot .bot-note { color: var(--muted); font-size: 0.8rem; margin: 10px 2px 0; }
+  .bot .btn { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .talking .bot-id .state::before, body.talking .state::before { background: var(--accent-2); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .hero .avatar { order: 2; width: min(78vw, 360px); }
+    .hero-text { padding-bottom: 8px; }
+  }
+  @media (max-width: 520px) {
+    .bot { right: 10px; bottom: 10px; }
+    .fab { right: 14px; bottom: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .bot, .pupils { animation: none; transition: none; } }
+
+  /* ---- Interactive extras ---- */
+  section { scroll-margin-top: 72px; }
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; pointer-events: none; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform-origin: left center; transform: scaleX(var(--p, 0)); }
+  .dock { position: fixed; top: 12px; left: 50%; z-index: 45; display: flex; gap: 2px; align-items: center; padding: 5px; border-radius: 999px; max-width: calc(100vw - 20px);
+    background: color-mix(in srgb, var(--surface) 84%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border: 1px solid var(--line); box-shadow: 0 12px 30px -14px rgba(40, 0, 10, .45); transform: translate(-50%, -160%); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .dock.show { transform: translate(-50%, 0); }
+  .dock a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: .9rem; padding: 6px 13px; border-radius: 999px; white-space: nowrap; transition: background .2s, color .2s; }
+  .dock a:hover { background: var(--accent-soft); }
+  .dock a[aria-current="true"] { background: var(--accent); color: var(--surface); }
+  .dock .dock-name { font-family: "Kaushan Script", cursive; font-size: 1.15rem; color: var(--accent); padding-right: 10px; }
+  .dock .dock-name:hover { background: none; }
+  .pillnav a[aria-current="true"] { background: rgba(255,255,255,.28); }
+
+  .hero .tag { max-width: 24ch; min-height: 3.45em; }
+  .caret { display: inline-block; width: 3px; height: .9em; margin-left: 3px; vertical-align: -.08em; background: currentColor; animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 18px 0 0; max-width: 580px; }
+  .stat { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font: inherit; color: #fff; text-decoration: none; text-align: left; cursor: pointer;
+    padding: 10px 14px; border-radius: 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.32); transition: background .2s, transform .15s; }
+  .stat:hover { background: rgba(255,255,255,.2); transform: translateY(-3px); }
+  .stat b { font-family: var(--display); font-size: 1.75rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stat small { font-size: .8rem; line-height: 1.25; opacity: .92; }
+
+  .avatar { position: relative; cursor: pointer; border-radius: 24px; }
+  .avatar:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
+  .avatar.boing { animation: boing .6s ease-out; }
+  @keyframes boing { 30% { transform: translateY(-16px) scale(1.03); } 60% { transform: translateY(0) scale(.98); } }
+  .say { position: absolute; top: 4%; left: -4%; z-index: 5; max-width: 62%; padding: 12px 16px; border-radius: 18px 18px 18px 4px; background: #fff; color: #2A0E13;
+    font-weight: 600; font-size: .95rem; line-height: 1.35; box-shadow: 0 14px 30px -12px rgba(40, 0, 10, .5); pointer-events: none;
+    opacity: 0; transform: translateY(8px) scale(.9); transform-origin: bottom left; transition: opacity .25s, transform .25s; }
+  .say.on { opacity: 1; transform: none; }
+
+  .spot { position: relative; isolation: isolate; }
+  .spot::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 70%); }
+  .spot:hover::before { opacity: 1; }
+  .tilt { transform: perspective(900px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); transition: transform .25s ease-out; }
+
+  .panel.swap > * { animation: slideIn .4s cubic-bezier(.2,.7,.2,1) both; }
+  .panel.swap > :nth-child(2) { animation-delay: .04s; } .panel.swap > :nth-child(3) { animation-delay: .08s; } .panel.swap > :nth-child(n+4) { animation-delay: .12s; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 28px)); } }
+  .panel-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .stepper { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .9rem; }
+  .mini:disabled { opacity: .4; cursor: default; border-color: transparent; }
+
+  .skill-tools { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 0 0 14px; }
+  .skill-tools input { font: inherit; width: min(100%, 340px); padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+  .skill-tools input::placeholder { color: var(--muted); }
+  .skill-tools input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px var(--accent-soft); }
+  .nomatch { margin: 0 0 22px; padding: 14px 18px; border-radius: 14px; border: 1.5px dashed var(--line); color: var(--muted); }
+  .linkish { font: inherit; font-weight: 600; background: none; border: 0; padding: 0 2px; color: var(--accent); text-decoration: underline; cursor: pointer; }
+
+  .motion .reveal { transition: opacity .7s var(--d, 0s), transform .7s var(--d, 0s) cubic-bezier(.2,.7,.2,1); }
+  .motion .reveal:not(.in) { opacity: 0; transform: translateY(28px); }
+  .motion .pipeline:not(.go)::after { animation-play-state: paused; }
+  .bit { position: fixed; z-index: 70; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; }
+  .tip kbd { font: inherit; font-weight: 600; padding: 0 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--surface); color: var(--ink); }
+
+  /* Auto intro, video avatar, idle nudges and quiz */
+  .say { max-width: 68%; }
+  .band .btn.hear { animation: glow 1.8s ease-in-out infinite; }
+  @keyframes glow { 50% { box-shadow: 0 0 0 9px rgba(255,255,255,.25); } }
+  .avatar .vid { position: absolute; left: 4%; top: 2%; width: 92%; aspect-ratio: 1; object-fit: cover; border-radius: 50%;
+    border: 6px solid rgba(255,255,255,.92); background: #C8102E; box-shadow: 0 24px 50px -20px rgba(40, 0, 10, .6); }
+  .avatar.has-video .sway { display: none; }
+  .nudge { position: fixed; right: 22px; bottom: 86px; z-index: 41; display: flex; gap: 10px; align-items: flex-start; max-width: min(330px, calc(100vw - 28px));
+    padding: 12px 14px; border-radius: 18px 18px 4px 18px; background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+    box-shadow: 0 16px 36px -14px rgba(40, 0, 10, .5); animation: rise .25s ease-out; }
+  .nudge p { margin: 0; font-size: .95rem; line-height: 1.4; font-weight: 500; }
+  .nudge .face { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-family: "Kaushan Script", cursive; }
+  .nudge .x { flex: none; font: inherit; font-size: 1.2rem; line-height: 1; background: none; border: 0; padding: 2px 4px; color: var(--muted); cursor: pointer; }
+  .quiz { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; max-width: 780px; }
+  .quiz h3 { font-family: var(--display); font-size: 1.35rem; line-height: 1.25; margin: 0 0 16px; }
+  .q-count { margin: 0 0 6px; color: var(--muted); font-size: .9rem; font-weight: 600; }
+  .q-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .q-opt { font: inherit; text-align: left; padding: 12px 16px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .15s, transform .12s; }
+  .q-opt:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
+  .q-opt:disabled { cursor: default; opacity: .55; }
+  .q-opt.right { opacity: 1; border-color: #1F7A4D; background: #E3F5EA; color: #0F3D26; }
+  .q-opt.wrong { opacity: 1; border-color: var(--accent); background: var(--accent-soft); animation: shake .4s; }
+  @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+  .q-say { margin: 16px 0 0; font-weight: 600; min-height: 1.6em; }
+  .q-foot { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .q-score { font-family: var(--display); font-size: 3rem; font-weight: 700; line-height: 1; color: var(--accent); margin: 0 0 8px; }
+  @media (max-width: 520px) { .q-opts { grid-template-columns: 1fr; } .quiz { padding: 22px 20px; } .nudge { right: 14px; bottom: 78px; } }
+  @media (prefers-reduced-motion: reduce) { .band .btn.hear, .q-opt.wrong, .nudge { animation: none; } }
+
+  /* Badges, research and certificates */
+  .badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; }
+  .badges li { font-size: .85rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.4); }
+  .badges abbr { text-decoration: none; }
+  .badges .award-badge { background: #FFF4D6; border-color: #FFF4D6; }
+  .badges .award-badge a { color: #6B3F00; text-decoration: none; }
+  .badges .award-badge a:hover { text-decoration: underline; }
+  .pub-filter { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px; }
+  .papers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .paper { display: flex; flex-direction: column; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; transition: transform .15s, border-color .15s; }
+  .paper:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .paper.won { border: 2px solid #D9A400; }
+  .paper .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: .75rem; font-weight: 700; letter-spacing: .03em; padding: 3px 9px; border-radius: 999px; }
+  .tag.IEEE { background: #E1ECF8; color: #00467F; }
+  .tag.Springer { background: #FDE8DD; color: #8A3300; }
+  .tag.award { background: #FFF1C2; color: #6B4A00; }
+  .paper h3 { font-family: var(--display); font-size: 1.1rem; line-height: 1.3; margin: 0; }
+  .paper h3 a { color: var(--ink); text-decoration: none; }
+  .paper h3 a:hover { color: var(--accent); text-decoration: underline; }
+  .paper .venue { color: var(--muted); font-size: .9rem; margin: 0; flex: 1; }
+  .paper .acts { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: .9rem; font-weight: 600; }
+  .paper .acts a { color: var(--accent); }
+  .certs-title { font-family: var(--display); font-size: 1.2rem; margin: 36px 0 14px; }
+  .certs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .cert { font: inherit; text-align: left; cursor: zoom-in; padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); transition: transform .15s, box-shadow .15s; }
+  .cert:hover { transform: translateY(-4px) rotate(-.6deg); box-shadow: 0 18px 36px -18px rgba(40, 0, 10, .45); }
+  .cert img { display: block; width: 100%; aspect-ratio: 1.41; object-fit: cover; }
+  .cert span { display: block; padding: 10px 14px; font-size: .88rem; font-weight: 600; line-height: 1.35; }
+  .viewer { width: min(1000px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 0; border-radius: 18px; background: var(--surface); color: var(--ink); }
+  .viewer::backdrop { background: rgba(20, 0, 5, .75); }
+  .viewer-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .viewer-bar span { flex: 1; font-weight: 600; font-size: .95rem; min-width: 0; }
+  .viewer img { display: block; width: 100%; height: auto; max-height: calc(100vh - 110px); object-fit: contain; background: #fff; }
+  @media (max-width: 760px) { .papers, .certs { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) { .dock { overflow-x: auto; scrollbar-width: none; justify-content: flex-start; } .dock::-webkit-scrollbar { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .paper, .cert { transition: none; } }
+
+
+  /* Full-body clay character: size, expressions, wave and floating cubes */
+  .hero .avatar { aspect-ratio: 320 / 640; width: min(100%, 340px); margin-bottom: 0; }
+  .avatar .say { top: 1%; }
+  .eyes .eye-l, .eyes .eye-r, .brow-l, .brow-r { transform-box: fill-box; transform-origin: center; transition: transform .2s; }
+  .arc-l, .arc-r, .mouth-alt { display: none; }
+  .blush { opacity: .35; transition: opacity .3s; }
+  [data-mood="happy"] .eye-l, [data-mood="happy"] .eye-r, [data-mood="laugh"] .eye-l, [data-mood="laugh"] .eye-r, [data-mood="wink"] .eye-r { display: none; }
+  [data-mood="happy"] .arc-l, [data-mood="happy"] .arc-r, [data-mood="laugh"] .arc-l, [data-mood="laugh"] .arc-r, [data-mood="wink"] .arc-r { display: inline; }
+  [data-mood="happy"] .blush, [data-mood="laugh"] .blush, [data-mood="wink"] .blush { opacity: .6; }
+  [data-mood="laugh"] .mouth, [data-mood="surprised"] .mouth, [data-mood="thinking"] .mouth { display: none; }
+  [data-mood="laugh"] .m-laugh, [data-mood="surprised"] .m-o, [data-mood="thinking"] .m-hmm { display: inline; }
+  [data-mood="surprised"] .eye-l, [data-mood="surprised"] .eye-r { transform: scale(1.14); }
+  [data-mood="surprised"] .brows { transform: translateY(-6px); }
+  [data-mood="thinking"] .brow-r { transform: translateY(-5px) rotate(-8deg); }
+  [data-mood="thinking"] .pupils { transform: translate(4px, -4px); }
+  .brows { transition: transform .2s; }
+  .talking .mouth-alt { display: none !important; }
+  .talking .mouth { display: inline !important; }
+  .arm-r { transform-box: view-box; transform-origin: 248px 236px; }
+  .avatar.waving .arm-r { animation: wave 1.8s ease-in-out; }
+  @keyframes wave { 0%, 100% { transform: rotate(0deg); } 18% { transform: rotate(-162deg); } 32% { transform: rotate(-146deg); } 46% { transform: rotate(-166deg); } 60% { transform: rotate(-146deg); } 74% { transform: rotate(-162deg); } 88% { transform: rotate(-60deg); } }
+  .cube { animation: bob 3.4s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-9px); } }
+  @media (max-width: 900px) { .hero .avatar { width: min(60vw, 270px); } }
+  @media (prefers-reduced-motion: reduce) { .cube, .avatar.waving .arm-r { animation: none; } .eye-l, .eye-r, .brows, .brow-l, .brow-r, .blush { transition: none; } }
+  @media (max-width: 900px) { .say { font-size: .85rem; max-width: 70%; } }
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dock .dock-name { display: none; }
+    .dock a { padding: 6px 10px; font-size: .85rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dock, .stat, .say, .tilt, .spot::before { transition: none; }
+    .caret, .avatar.boing, .panel.swap > * { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<nav class="dock" id="dock" aria-label="Quick navigation" inert>
+  <a class="dock-name" href="#top">Divya</a>
+  <a href="#experience">Work</a>
+  <a href="#skills">Skills</a>
+  <a href="#research">Research</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="band" id="top">
+  <div class="wrap">
+    <header class="top">
+      <span class="top-name">Divya Biradar</span>
+      <nav class="pillnav" aria-label="Sections">
+        <a href="#experience">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#research">Research</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div class="hero-text">
+        <h1><span class="hi">Hi, I'm</span><span class="script">Divya</span></h1>
+        <p class="tag"><span class="sr">I build the data pipelines behind AI assistants.</span><span aria-hidden="true">I build <span id="rot">the data pipelines behind AI assistants.</span><span class="caret"></span></span></p>
+        <p>AI Data Engineer with nearly five years of experience across AWS, Azure and Google Cloud. Move your cursor and I'll follow it, or click me for a fun fact. Ask me a question and I'll answer out loud.</p>
+        <p class="where">AI Data Engineer at Vanguard, based in Houston, Texas</p>
+        <ul class="badges" aria-label="Memberships and roles">
+          <li><abbr title="Society of Women Engineers">SWE</abbr> Member</li>
+          <li>IEEE Member</li>
+          <li>Researcher</li>
+          <li class="award-badge"><a href="#research">🏆 Best Paper Presentation, IEEE ICIETDW '24</a></li>
+        </ul>
+        <div class="stats" id="stats">
+          <button type="button" class="stat" data-ask="How many years of experience do you have?"><b data-count="years" data-dec="1">4.9</b><small>years in data</small></button>
+          <a class="stat" href="#experience"><b data-count="5">5</b><small>companies</small></a>
+          <button type="button" class="stat" data-ask="Which cloud platforms have you used?"><b data-count="3">3</b><small>clouds: AWS, Azure, GCP</small></button>
+          <a class="stat" href="#research"><b data-count="10">10</b><small>published papers</small></a>
+        </div>
+        <div class="hero-actions">
+          <button class="btn hear" type="button" id="hearMe">🔊 Turn on my voice</button>
+          <button class="btn" type="button" id="openChat">Ask me a question</button>
+          <a class="btn ghost" href="#contact">Let's talk</a>
+          <button class="btn ghost" type="button" id="playIntro">Replay my introduction</button>
+        </div>
+      </div>
+      <div class="avatar" id="avatar" data-mood="smile" role="button" tabindex="0" aria-label="Click Divya for a fun fact">
+        <div class="say" id="say" aria-hidden="true"></div>
+        <div class="sway"><div class="rig" id="rig">
+              <!-- Full-body clay character on an isometric platform. Expressions switch with data-mood on #avatar. -->
+              <svg class="z-disc" viewBox="0 0 320 640">
+                <defs>
+                  <radialGradient id="cSkin" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#F3C9A4"/><stop offset=".55" stop-color="#DBA37B"/><stop offset="1" stop-color="#B27552"/></radialGradient>
+                  <linearGradient id="cHair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4C3129"/><stop offset=".5" stop-color="#2C1B16"/><stop offset="1" stop-color="#1A0F0C"/></linearGradient>
+                  <radialGradient id="cBlazer" cx="35%" cy="20%" r="90%"><stop offset="0" stop-color="#3A4260"/><stop offset=".6" stop-color="#232A40"/><stop offset="1" stop-color="#151A2A"/></radialGradient>
+                  <linearGradient id="cTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF1E6"/><stop offset="1" stop-color="#E4D3C1"/></linearGradient>
+                  <radialGradient id="cIris" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#7A4A2C"/><stop offset="1" stop-color="#3B2114"/></radialGradient>
+                  <filter id="clay" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+                    <!-- Smooth 3D/CGI look (the id stays "clay" so every part keeps using it) -->
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blurA"/>
+                    <feComposite in="SourceAlpha" in2="blurA" operator="arithmetic" k2="1" k3="-1" result="rim"/>
+                    <feFlood flood-color="#1A0608" flood-opacity=".6"/>
+                    <feComposite in2="rim" operator="in" result="rimShade"/>
+                    <feComposite in="rimShade" in2="SourceGraphic" operator="over" result="shaded"/>
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="soft"/>
+                    <feSpecularLighting in="soft" surfaceScale="5" specularConstant=".85" specularExponent="38" lighting-color="#fff" result="spec"><feDistantLight azimuth="235" elevation="42"/></feSpecularLighting>
+                    <feComposite in="spec" in2="SourceAlpha" operator="in" result="shine"/>
+                    <feComposite in="shaded" in2="shine" operator="arithmetic" k2="1" k3=".6" result="lit"/>
+                    <feComposite in="lit" in2="SourceAlpha" operator="in"/>
+                    <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#3A0A10" flood-opacity=".35"/>
+                  </filter>
+                </defs>
+                <g filter="url(#clay)">
+                  <polygon fill="#E7A39D" points="40,536 160,596 160,620 40,560"/>
+                  <polygon fill="#CF7F79" points="160,596 280,536 280,560 160,620"/>
+                  <polygon fill="#FFE9E5" points="40,536 160,476 280,536 160,596"/>
+                </g>
+                <path d="M70 536 L160 491 L250 536 L160 581 Z" fill="none" stroke="#F4C9C3" stroke-width="2" stroke-dasharray="6 6"/>
+                <ellipse cx="160" cy="541" rx="56" ry="14" fill="#8A2A33" opacity=".18"/>
+                <g class="stack" style="animation-delay:0s" filter="url(#clay)"><polygon fill="#F2B632" points="230.0,506 246.0,514 246.0,553.6 230.0,545.6"/><polygon fill="#C98A12" points="246.0,536 262.0,528 262.0,545.6 246.0,553.6"/><polygon fill="#FFE08A" points="246.0,520 262.0,528 246.0,536 230.0,528"/></g>
+                <g class="stack" style="animation-delay:0s" filter="url(#clay)"><polygon fill="#E0485C" points="230.0,502 246.0,510 246.0,527.6 230.0,519.6"/><polygon fill="#B5233A" points="246.0,510 262.0,502 262.0,519.6 246.0,527.6"/><polygon fill="#FF9AA5" points="246.0,494 262.0,502 246.0,510 230.0,502"/></g>
+                <g class="cube" style="animation-delay:0s" filter="url(#clay)"><polygon fill="#E0485C" points="32.0,108.0 46.0,115.0 46.0,130.4 32.0,123.4"/><polygon fill="#B5233A" points="46.0,115.0 60.0,108.0 60.0,123.4 46.0,130.4"/><polygon fill="#FF9AA5" points="46.0,101.0 60.0,108.0 46.0,115.0 32.0,108.0"/></g>
+                <g class="cube" style="animation-delay:1.1s" filter="url(#clay)"><polygon fill="#F2B632" points="20.0,222.0 30.0,227.0 30.0,238.0 20.0,233.0"/><polygon fill="#C98A12" points="30.0,227.0 40.0,222.0 40.0,233.0 30.0,238.0"/><polygon fill="#FFE08A" points="30.0,217.0 40.0,222.0 30.0,227.0 20.0,222.0"/></g>
+                <g class="cube" style="animation-delay:0.6s" filter="url(#clay)"><polygon fill="#F1D9DC" points="277.0,330.0 290.0,336.5 290.0,350.8 277.0,344.3"/><polygon fill="#D9B6BB" points="290.0,336.5 303.0,330.0 303.0,344.3 290.0,350.8"/><polygon fill="#FFFFFF" points="290.0,323.5 303.0,330.0 290.0,336.5 277.0,330.0"/></g>
+                <g class="cube" style="animation-delay:1.7s" filter="url(#clay)"><polygon fill="#F2B632" points="268.0,50.0 278.0,55.0 278.0,66.0 268.0,61.0"/><polygon fill="#C98A12" points="278.0,55.0 288.0,50.0 288.0,61.0 278.0,66.0"/><polygon fill="#FFE08A" points="278.0,45.0 288.0,50.0 278.0,55.0 268.0,50.0"/></g>
+              </svg>
+              <svg class="z-back" viewBox="0 0 320 640">
+                <g transform="translate(10 -40)"><path filter="url(#clay)" fill="url(#cHair)" d="M68 146 C56 52 244 52 232 146 C238 200 244 252 246 304 C214 322 86 322 54 304 C56 252 62 200 68 146 Z"/></g>
+              </svg>
+              <svg class="z-body" viewBox="0 0 320 640">
+                <g filter="url(#clay)" fill="#1B2034">
+                  <path d="M104 352 L157 352 L153 528 L126 528 Z"/><path d="M163 352 L216 352 L194 528 L167 528 Z"/>
+                </g>
+                <g filter="url(#clay)" fill="#2B1B16">
+                  <path d="M122 522 H154 C161 522 163 541 155 541 H113 C104 541 107 522 122 522 Z"/>
+                  <path d="M166 522 H198 C211 522 214 541 205 541 H165 C157 541 158 522 166 522 Z"/>
+                </g>
+                <path filter="url(#clay)" fill="url(#cSkin)" d="M141 166 L179 166 L181 218 C170 226 150 226 139 218 Z"/>
+                <g filter="url(#clay)">
+                  <path fill="url(#cTop)" d="M124 210 C136 226 184 226 196 210 L176 384 L144 384 Z"/>
+                  <path d="M146 232 V356 M160 234 V358 M174 232 V356" stroke="#D9C6B2" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <path d="M128 212 C140 228 180 228 192 212" stroke="#E2D0BD" stroke-width="5" fill="none" stroke-linecap="round"/>
+                </g>
+                <g filter="url(#clay)" fill="url(#cBlazer)">
+                  <path d="M130 210 C92 214 68 232 64 262 L58 386 L157 386 L150 330 Z"/>
+                  <path d="M190 210 C228 214 252 232 256 262 L262 386 L163 386 L170 330 Z"/>
+                </g>
+                <g filter="url(#clay)" fill="#2D3550">
+                  <path d="M130 210 L111 250 L132 258 L153 326 Z"/><path d="M190 210 L209 250 L188 258 L167 326 Z"/>
+                </g>
+                <circle cx="183" cy="300" r="3" fill="#3A4260"/><circle cx="183" cy="322" r="3" fill="#3A4260"/>
+                <g class="arm-l">
+                  <path filter="url(#clay)" fill="url(#cBlazer)" stroke="#10141F" stroke-width="2" d="M70 232 C54 262 50 310 54 352 L78 352 C78 312 82 270 94 240 Z"/>
+                  <g filter="url(#clay)"><polygon fill="#B9BEC9" points="34,332 78,318 90,382 46,396"/><polygon fill="#DADDE4" points="38,334 76,322 87,380 49,392"/>
+                  <circle cx="63" cy="357" r="5" fill="#B9BEC9"/></g>
+                  <circle filter="url(#clay)" cx="66" cy="360" r="13" fill="url(#cSkin)"/>
+                </g>
+                <g class="arm-r">
+                  <path filter="url(#clay)" fill="url(#cBlazer)" stroke="#10141F" stroke-width="2" d="M250 232 C266 262 270 310 266 352 L242 352 C242 312 238 270 226 240 Z"/>
+                  <circle filter="url(#clay)" cx="254" cy="362" r="13" fill="url(#cSkin)"/>
+                </g>
+              </svg>
+              <svg class="z-head" viewBox="0 0 320 640">
+                <g transform="translate(10 -40)"><g filter="url(#clay)" fill="url(#cSkin)">
+                  <ellipse cx="95" cy="160" rx="10" ry="15"/><ellipse cx="205" cy="160" rx="10" ry="15"/>
+                  <path d="M96 140 C96 82 204 82 204 140 C204 198 180 234 150 234 C120 234 96 198 96 140 Z"/>
+                </g>
+                <circle cx="94" cy="175" r="3.4" fill="#F2D27A" filter="url(#clay)"/><circle cx="206" cy="175" r="3.4" fill="#F2D27A" filter="url(#clay)"/></g>
+              </svg>
+              <svg class="z-face" viewBox="0 0 320 640">
+                <g transform="translate(10 -40)"><g class="blush"><ellipse cx="116" cy="190" rx="14" ry="8" fill="#E57C86"/><ellipse cx="184" cy="190" rx="14" ry="8" fill="#E57C86"/></g>
+                <g class="brows" filter="url(#clay)" fill="none" stroke="#2C1B16" stroke-width="5.5" stroke-linecap="round">
+                  <path class="brow-l" d="M108 132 Q123 123 139 130"/><path class="brow-r" d="M161 130 Q177 123 192 132"/>
+                </g>
+                <g class="eyes" filter="url(#clay)">
+                  <g class="eye-l"><ellipse cx="123" cy="160" rx="13.5" ry="15.5" fill="#FFFDF9"/>
+                    <g class="pupils"><ellipse cx="124" cy="162" rx="9.5" ry="12" fill="url(#cIris)"/><ellipse cx="124" cy="163" rx="5" ry="6.5" fill="#140A07"/>
+                    <circle cx="128.5" cy="156" r="3.8" fill="#fff"/><circle cx="120" cy="167" r="1.6" fill="#fff" opacity=".8"/></g>
+                    <path d="M108 152 Q123 139 139 150" stroke="#2C1B16" stroke-width="4.5" fill="none" stroke-linecap="round"/></g>
+                  <g class="eye-r"><ellipse cx="177" cy="160" rx="13.5" ry="15.5" fill="#FFFDF9"/>
+                    <g class="pupils"><ellipse cx="176" cy="162" rx="9.5" ry="12" fill="url(#cIris)"/><ellipse cx="176" cy="163" rx="5" ry="6.5" fill="#140A07"/>
+                    <circle cx="180.5" cy="156" r="3.8" fill="#fff"/><circle cx="172" cy="167" r="1.6" fill="#fff" opacity=".8"/></g>
+                    <path d="M161 150 Q177 139 192 152" stroke="#2C1B16" stroke-width="4.5" fill="none" stroke-linecap="round"/></g>
+                </g>
+                <g filter="url(#clay)" fill="none" stroke="#2C1B16" stroke-width="5" stroke-linecap="round">
+                  <path class="arc-l" d="M110 164 Q123 148 136 164"/><path class="arc-r" d="M164 164 Q177 148 190 164"/>
+                </g>
+                <g filter="url(#clay)">
+                  <ellipse cx="150" cy="186" rx="7" ry="5" fill="#C98D65"/>
+                  <ellipse cx="148" cy="184" rx="2.6" ry="1.6" fill="#F6D2B2" opacity=".8"/>
+                </g>
+                <path class="mouth" filter="url(#clay)" d="M133 202 Q150 220 167 202 Q150 210 133 202 Z" fill="#A9434F"/>
+                <g class="mouth-alt m-laugh" filter="url(#clay)"><path d="M131 200 Q150 232 169 200 Z" fill="#8E2F3B"/>
+                  <path d="M135 201 H165 L163 205 H137 Z" fill="#fff"/><ellipse cx="150" cy="217" rx="8" ry="4.5" fill="#E07A86"/></g>
+                <ellipse class="mouth-alt m-o" filter="url(#clay)" cx="150" cy="209" rx="6.5" ry="8.5" fill="#8E2F3B"/>
+                <path class="mouth-alt m-hmm" filter="url(#clay)" d="M138 208 Q150 203 163 209" stroke="#A9434F" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                <circle cx="113" cy="200" r="2.2" fill="#6A3B27"/></g>
+              </svg>
+              <svg class="z-hair" viewBox="0 0 320 640">
+                <g transform="translate(10 -40)"><g filter="url(#clay)" fill="url(#cHair)">
+                  <path d="M92 152 C82 70 218 70 208 152 C202 118 188 100 164 93 C152 114 128 128 100 134 C96 140 94 146 92 152 Z"/>
+                  <path d="M98 126 C86 172 86 236 96 304 C102 306 110 304 116 300 C106 242 104 182 110 140 Z"/>
+                  <path d="M202 120 C214 170 214 236 204 304 C198 306 190 304 184 300 C194 242 196 180 190 136 Z"/>
+                </g>
+                <g fill="none" stroke="#6B4A40" stroke-width="3.5" stroke-linecap="round" opacity=".55">
+                  <path d="M112 98 Q140 82 166 92"/><path d="M168 96 Q192 104 200 128"/><path d="M100 160 Q96 220 104 286"/>
+                </g></g>
+              </svg>
+            </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="fab" type="button" id="chatFab" aria-expanded="false" aria-controls="bot">Ask Divya</button>
+<div class="bot" id="bot" role="dialog" aria-label="Ask Divya" hidden>
+  <div class="bot-head">
+    <div class="bot-id">
+      <strong>Ask Divya</strong>
+      <span class="state" id="botState">Ready for your question</span>
+    </div>
+    <div class="bot-tools">
+      <button class="mini" type="button" id="voice" aria-pressed="true">Voice on</button>
+      <button class="mini" type="button" id="stopTalk" hidden>Stop speaking</button>
+      <button class="mini" type="button" id="closeChat" aria-label="Close chat">Close</button>
+    </div>
+  </div>
+  <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Conversation" tabindex="0"></div>
+  <div class="sugs" id="sugs" aria-label="Suggested questions"></div>
+  <form class="ask" id="askForm">
+    <label class="sr" for="askInput">Type your message</label>
+    <input id="askInput" type="text" maxlength="300" autocomplete="off" placeholder="Type your name to begin">
+    <button class="btn" type="submit" id="askBtn">Send</button>
+  </form>
+  <p class="bot-note">Automated answers based on my resume. Visits and questions are recorded so I can follow up.</p>
+</div>
+
+<dialog class="viewer" id="viewer" aria-label="Certificate">
+  <div class="viewer-bar">
+    <span id="viewerTitle"></span>
+    <button type="button" class="mini" id="viewerPrev" aria-label="Previous certificate">&larr;</button>
+    <button type="button" class="mini" id="viewerNext" aria-label="Next certificate">&rarr;</button>
+    <button type="button" class="mini" id="viewerClose">Close</button>
+  </div>
+  <img id="viewerImg" alt="">
+</dialog>
+
+<div class="wrap">
+  <main>
+    <section id="experience">
+      <h2>Experience</h2>
+      <p class="lede">Five roles, oldest to newest. Select a stop, use the arrow keys, or swipe the card to move through my career.</p>
+      <div class="pipeline" role="tablist" aria-label="Career timeline" id="pipeline"></div>
+      <div class="panel spot" role="tabpanel" id="panel" tabindex="0" aria-live="polite"></div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <p class="lede">Search for a tool, or select a skill to see how I used it.</p>
+      <div class="skill-tools">
+        <label class="sr" for="skillFilter">Search skills</label>
+        <input id="skillFilter" type="search" autocomplete="off" placeholder="Search skills, e.g. Spark or Snowflake">
+      </div>
+      <p class="nomatch" id="noMatch" aria-live="polite" hidden></p>
+      <div class="status" id="status">
+        <span id="statusText">No skill selected.</span>
+        <button type="button" id="clear" hidden>Clear selection</button>
+      </div>
+      <div class="skillgroups" id="skillgroups"></div>
+      <p class="also">I also work with Snowflake, Delta Lake, Docker, Kubernetes, CI/CD, Git and role-based access control.</p>
+    </section>
+
+    <section id="research">
+      <h2>Research and publications</h2>
+      <p class="lede">Ten peer-reviewed papers in IEEE and Springer proceedings, across healthcare AI, data quality, fraud detection, sustainability, robotics and speech. Select a paper to read it.</p>
+      <div class="pub-filter" role="group" aria-label="Filter papers" id="pubFilter">
+        <button type="button" class="mini" data-f="all" aria-pressed="true">All</button>
+        <button type="button" class="mini" data-f="IEEE" aria-pressed="false">IEEE</button>
+        <button type="button" class="mini" data-f="Springer" aria-pressed="false">Springer</button>
+        <button type="button" class="mini" data-f="award" aria-pressed="false">Award-winning</button>
+      </div>
+      <div class="papers" id="papers"></div>
+      <h3 class="certs-title">Conference certificates</h3>
+      <div class="certs" id="certs"></div>
+    </section>
+
+    <section id="quiz">
+      <h2>Quick quiz: how well do you know me?</h2>
+      <p class="lede">Three questions, about thirty seconds. Wrong answers are welcome. They're funnier.</p>
+      <div class="quiz spot" id="quizBox" aria-live="polite"></div>
+    </section>
+
+    <section id="education">
+      <div class="two">
+        <div>
+          <h3>Education</h3>
+          <ul class="plain">
+            <li><strong>M.S., Computer Science</strong><span>The University of Texas at Arlington, Aug 2023 to Dec 2024</span></li>
+            <li><strong>B.Tech, Computer Science</strong><span>Bharat Institute of Engineering and Technology, Jun 2018 to Jul 2022</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Certifications</h3>
+          <ul class="plain">
+            <li><strong>Databricks Certified Data Engineer Associate</strong><span>Databricks</span></li>
+            <li><strong>Google Generative AI Leader</strong><span>Google</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Have a data or AI engineering role in mind?</h2>
+      <p>I'm open to AI Data Engineer, Data Engineer, Data Analyst and BI roles, and open to relocation.</p>
+      <div class="hero-actions">
+        <a class="btn" id="mailBtn" href="#">Email me</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/divya-b-35a912205/" target="_blank" rel="noopener">View LinkedIn</a>
+        <button class="btn ghost" type="button" id="copy">Copy email address</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Divya Biradar, Houston, Texas</span>
+    <span class="tip">Press <kbd>/</kbd> anywhere to ask me a question</span>
+    <a href="admin.html">Owner dashboard</a>
+  </footer>
+</div>
+
+<script>
+const CFG = window.PORTFOLIO_CONFIG || {};
+const EMAIL = CFG.EMAIL || "data.engineer.ai.4866@gmail.com";
+const BACKEND = (CFG.BACKEND_URL || "").trim();
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+$("mailBtn").href = "mailto:" + EMAIL;
+
+/* ---------- Resume data ---------- */
+const roles = [
+  { id: "healthifyme", co: "HealthifyMe", title: "Data Engineering Intern", dates: "Jan 2022 to Jun 2022", yrs: "2022",
+    points: ["Helped build the data lake, data warehouse and data marts on AWS for analytics.",
+      "Set up real-time data sync with Talend, connecting Kafka streams and Oracle change data capture to downstream systems.",
+      "Built reusable Talend joblets with error handling and dynamic schema handling."],
+    skills: ["AWS S3", "Redshift", "AWS Glue", "Kafka", "Talend", "Change data capture", "Data warehousing"] },
+  { id: "freshworks", co: "Freshworks", title: "Big Data Engineer", dates: "Jun 2022 to Aug 2023", yrs: "2022 to 2023",
+    points: ["Built large-scale Spark applications in PySpark, Python and SQL, orchestrated with Apache Airflow.",
+      "Implemented Medallion Architecture (bronze, silver, gold) on Databricks for layered transformations.",
+      "Wrote incremental, idempotent load logic so pipeline reruns never create duplicates.",
+      "Tuned Spark jobs with partitioning, caching, broadcast joins and skew mitigation."],
+    skills: ["Apache Spark", "PySpark", "Python", "SQL", "Apache Airflow", "Databricks", "Medallion Architecture", "Data quality checks"] },
+  { id: "srifoods", co: "Sri Foods USA", title: "Data Engineer", dates: "Jan 2024 to Aug 2024", yrs: "2024",
+    points: ["Built and optimized ETL/ELT pipelines with SQL, Python, dbt, AWS Glue and Apache Airflow.",
+      "Ran pipelines and analytics workloads on Google Cloud Platform alongside AWS.",
+      "Delivered Power BI dashboards for executive, operations, procurement and finance teams.",
+      "Turned open-ended business questions into KPIs, forecasts and root-cause analyses, and presented the findings."],
+    skills: ["SQL", "Python", "dbt", "AWS Glue", "Apache Airflow", "GCP", "Power BI", "KPI design", "Forecasting", "Data quality checks"] },
+  { id: "eleventh", co: "Eleventh Avenue Exports & Imports", title: "AI Data Engineer", dates: "Aug 2024 to Oct 2025", yrs: "2024 to 2025",
+    points: ["Designed Azure pipelines with Data Factory and Data Lake that prepare data for AI models, including chunking and metadata enrichment.",
+      "Built RAG, document-intelligence and AI agent solutions with Azure OpenAI and Azure AI Foundry.",
+      "Wrote reusable Python libraries and REST API integrations for new data and AI projects.",
+      "Set up Databricks Genie so stakeholders can query company data in plain English.",
+      "Applied data masking, encryption and auditing to meet governance requirements."],
+    skills: ["Azure Data Factory", "Azure Data Lake", "Azure OpenAI", "Azure AI Foundry", "RAG", "Python", "Databricks", "Databricks Genie", "Data masking and encryption"] },
+  { id: "vanguard", co: "Vanguard", title: "AI Data Engineer", dates: "Oct 2025 to present", yrs: "2025 to now",
+    points: ["Build and run the data foundation behind Vanguard's AI assistants: pipelines that bring large datasets from many sources into RAG, vector search and embeddings.",
+      "Develop on AWS with Glue, Redshift, Step Functions, Lambda and SageMaker to keep pipelines secure, automated and observable.",
+      "Write Spark applications that transform large datasets for analytics and AI workloads.",
+      "Build Power BI dashboards and Python and SQL automation that take recurring reporting off people's plates.",
+      "Evaluate AI assistants and multi-agent workflows built with LangGraph and LangChain before release.",
+      "Mentor less-experienced data professionals and contribute to engineering standards."],
+    skills: ["AWS Glue", "Redshift", "Step Functions", "Lambda", "SageMaker", "Apache Spark", "Python", "SQL", "Power BI", "RAG", "Vector search and embeddings", "LangGraph", "LangChain", "LLM evaluation"] }
+];
+const groups = [
+  ["Data engineering", ["SQL", "Python", "PySpark", "Apache Spark", "dbt", "Apache Airflow", "Kafka", "Talend", "Change data capture", "Data quality checks", "Data warehousing"]],
+  ["Cloud", ["AWS S3", "AWS Glue", "Redshift", "Step Functions", "Lambda", "SageMaker", "Azure Data Factory", "Azure Data Lake", "GCP"]],
+  ["Lakehouse and BI", ["Databricks", "Medallion Architecture", "Databricks Genie", "Power BI", "KPI design", "Forecasting", "Data masking and encryption"]],
+  ["Applied AI", ["RAG", "Vector search and embeddings", "LangGraph", "LangChain", "LLM evaluation", "Azure OpenAI", "Azure AI Foundry"]]
+];
+// Publications. A paper with title: null shows its link only: add the title when you have it.
+const papers = [
+  { pub: "IEEE", title: "Virtual Reality Tele-Operation System for Mobile Robot Manipulation", venue: "2024 International Conference on Integration of Emerging Technologies for the Digital World (ICIETDW)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10940008", award: "Best Paper Presentation", cert: 0 },
+  { pub: "IEEE", title: "AI-Enhanced U-Net for Accurate Low-Grade Glioma Segmentation in Brain MRI: Transforming Healthcare Imaging", venue: "2024 Third IEEE International Conference on Electrical, Electronics, Information and Communication Technologies (ICEEICT)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10718440", cert: 1 },
+  { pub: "IEEE", title: "Beyond Words: Exploring Emotion Detection in Speech Using Sound", venue: "2024 5th International Conference for Emerging Technology (INCET)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10593428", cert: 2 },
+  { pub: "Springer", title: "Machine Learning Approaches to Safeguarding Health Insurance Against Fraudulent Claims", venue: "Advances in Data-Driven Computing and Intelligent Systems, Lecture Notes in Networks and Systems", year: 2026,
+    url: "https://link.springer.com/chapter/10.1007/978-981-96-7140-3_24" },
+  { pub: "Springer", title: "A Comprehensive Analysis of Cholera Disease Prediction Using Machine Learning", venue: "Fifth Congress on Intelligent Systems, Lecture Notes in Networks and Systems", year: 2025,
+    url: "https://link.springer.com/chapter/10.1007/978-981-96-2697-7_39" },
+  { pub: "Springer", title: "Unlocking Healthcare Fraud Detection Using Innovations of Machine Learning Strategies", venue: "Data Science and Big Data Analytics, Learning and Analytics in Intelligent Systems", year: 2025,
+    url: "https://link.springer.com/chapter/10.1007/978-981-97-9855-1_16" },
+  { pub: "IEEE", title: "Improving the Quality of Diabetic Data with Large Language Model-driven Cleaning Techniques", venue: "2024 International Conference on Intelligent Systems and Advanced Applications (ICISAA)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10828925" },
+  { pub: "IEEE", title: "Exploring the Tangible Impact of Artificial Intelligence and Machine Learning: Bridging the Gap between Hype and Reality", venue: "2024 1st International Conference on Advanced Computing and Emerging Technologies (ACET)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10730334" },
+  { pub: "IEEE", title: "A Study on Integrating Machine Learning Techniques for Waste Management", venue: "2024 7th International Conference on Circuit Power and Computing Technologies (ICCPCT)", year: 2024,
+    url: "https://ieeexplore.ieee.org/document/10672957" },
+  { pub: "IEEE", title: null, venue: "IEEE conference paper", url: "https://ieeexplore.ieee.org/document/10774633" }
+];
+const certificates = [
+  { src: "certificates/best-paper-icietdw-2024.jpg", label: "Best Paper Presentation, ICIETDW '24 (IEEE), September 2024" },
+  { src: "certificates/iceeict-2024.jpg", label: "Paper presentation, IEEE ICEEICT 2024, July 2024" },
+  { src: "certificates/incet-2024.jpg", label: "Paper presentation, INCET 2024 (IEEE Bangalore Section), May 2024" }
+];
+
+// What appears when a skill is selected: how I used it, in one sentence.
+const howUsed = {
+  "SQL": "I write SQL for ETL and ELT pipelines, data models and reporting automation, and to turn business questions into KPIs.",
+  "Python": "I write Python for pipelines, reusable libraries, REST API integrations and automation that takes recurring reporting off people's plates.",
+  "PySpark": "I built large-scale Spark applications in PySpark, with incremental loads that never create duplicates on a rerun.",
+  "Apache Spark": "I write Spark applications that transform large datasets for analytics and AI, and tune them with partitioning, caching, broadcast joins and skew fixes.",
+  "dbt": "I used dbt to build and optimize SQL transformations in ELT pipelines.",
+  "Apache Airflow": "I orchestrate Spark applications and ETL pipelines with Airflow so they run on schedule, in the right order.",
+  "Kafka": "I connected Kafka streams to downstream systems for real-time data sync.",
+  "Talend": "I built real-time sync jobs in Talend, plus reusable joblets with error handling and dynamic schema handling.",
+  "Change data capture": "I used Oracle change data capture to keep downstream systems in sync in real time.",
+  "Data quality checks": "I build validation checks into pipelines and write idempotent loads, so data stays accurate and reruns never create duplicates.",
+  "Data warehousing": "I helped build a data lake, data warehouse and data marts on AWS for analytics.",
+  "AWS S3": "I used S3 as the storage layer of a data lake on AWS.",
+  "AWS Glue": "I build ETL jobs in Glue to move and transform data, from analytics pipelines to the data behind AI assistants.",
+  "Redshift": "I load and model data in Redshift as the warehouse behind analytics and reporting.",
+  "Step Functions": "I use Step Functions to orchestrate pipeline steps so they run automatically and are easy to monitor.",
+  "Lambda": "I use Lambda to automate steps in secure, observable data pipelines.",
+  "SageMaker": "I use SageMaker alongside my pipelines to support AI and machine-learning workloads.",
+  "Azure Data Factory": "I designed Data Factory pipelines that prepare data for AI models, including chunking and metadata enrichment.",
+  "Azure Data Lake": "I stored and organized data in Azure Data Lake for AI and analytics pipelines.",
+  "GCP": "I ran data pipelines and analytics workloads on Google Cloud alongside AWS.",
+  "Databricks": "I implemented Medallion Architecture on Databricks and set up Databricks Genie so people can query data in plain English.",
+  "Medallion Architecture": "I organize data into bronze, silver and gold layers, so every cleaning and transformation step is clear and traceable.",
+  "Databricks Genie": "I set up Genie so stakeholders can ask questions of company data in plain English.",
+  "Power BI": "I build Power BI dashboards and reports for executive, operations, procurement and finance teams.",
+  "KPI design": "I turn open-ended business questions into clear KPIs that teams can track.",
+  "Forecasting": "I build forecasts and root-cause analyses, and present the findings to business teams.",
+  "Data masking and encryption": "I applied data masking, encryption and auditing to meet governance requirements.",
+  "RAG": "I build the pipelines that feed RAG systems, and I built RAG solutions with Azure OpenAI.",
+  "Vector search and embeddings": "I prepare the data and pipelines behind vector search and embeddings for AI assistants.",
+  "LangGraph": "I evaluate multi-agent workflows built with LangGraph before they are released.",
+  "LangChain": "I evaluate AI assistants built with LangChain before they go live.",
+  "LLM evaluation": "I test AI assistants and multi-agent workflows before release to make sure their answers are reliable.",
+  "Azure OpenAI": "I built RAG, document-intelligence and AI agent solutions with Azure OpenAI.",
+  "Azure AI Foundry": "I built AI agent solutions with Azure AI Foundry."
+};
+const alsoSkills = ["Snowflake", "Delta Lake", "Docker", "Kubernetes", "CI/CD", "Git", "role-based access control"];
+
+/* ---------- Experience timeline and skills ---------- */
+let current = roles.length - 1, skill = null, shown = -1;
+const pipeline = $("pipeline"), panel = $("panel");
+const chip = name => `<button type="button" class="chip" data-skill="${esc(name)}" aria-pressed="${skill === name}">${esc(name)}</button>`;
+function renderPipeline() {
+  pipeline.innerHTML = roles.map((r, i) => {
+    const hit = skill && r.skills.includes(skill);
+    return `<button type="button" class="node${skill ? (hit ? " hit" : " dim") : ""}" role="tab" id="tab-${r.id}" aria-controls="panel"
+      aria-selected="${i === current}" tabindex="${i === current ? 0 : -1}" data-i="${i}">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="txt"><span class="co">${esc(r.co)}</span><br><span class="yrs">${r.yrs}</span></span></button>`;
+  }).join("");
+}
+function renderPanel() {
+  const r = roles[current];
+  panel.setAttribute("aria-labelledby", "tab-" + r.id);
+  panel.innerHTML = `<h3>${esc(r.title)} | ${esc(r.co)}</h3><p class="meta">${r.dates}</p>
+    <ul>${r.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+    <p class="used">Tools I used here:</p><div class="chips">${r.skills.map(chip).join("")}</div>
+    <div class="panel-actions"><button type="button" class="btn ghost" data-ask="Tell me about your work at ${esc(r.co)}">Ask me about this role</button>
+      <div class="stepper">
+        <button type="button" class="mini" data-step="-1" ${current === 0 ? "disabled" : `aria-label="Previous role: ${esc(roles[current - 1].co)}"`}>&larr; Previous</button>
+        <span>${current + 1} of ${roles.length}</span>
+        <button type="button" class="mini" data-step="1" ${current === roles.length - 1 ? "disabled" : `aria-label="Next role: ${esc(roles[current + 1].co)}"`}>Next &rarr;</button>
+      </div></div>`;
+  // Slide the new content in only when the role changed, not when a chip was toggled.
+  const moved = shown !== -1 && shown !== current;
+  if (moved) panel.style.setProperty("--dir", current > shown ? 1 : -1);
+  panel.classList.toggle("swap", moved);
+  shown = current;
+}
+let filter = "";
+function applyFilter() {
+  const q = filter.trim().toLowerCase();
+  let any = false;
+  $("skillgroups").querySelectorAll(":scope > div").forEach(g => {
+    let n = 0;
+    g.querySelectorAll(".chip").forEach(c => { const ok = !q || c.dataset.skill.toLowerCase().includes(q); c.hidden = !ok; if (ok) n++; });
+    g.hidden = !n; if (n) any = true;
+  });
+  const nm = $("noMatch");
+  if (!q || any) { nm.hidden = true; return; }
+  const also = alsoSkills.filter(s => s.toLowerCase().includes(q));
+  nm.innerHTML = also.length
+    ? `${esc(listJoin(also))}: part of my toolkit too, outside the roles above. <button type="button" class="linkish" data-ask="Have you worked with ${esc(also[0])}?">Ask me about it</button>`
+    : `No skill matches "${esc(filter.trim())}". <button type="button" class="linkish" data-ask="Have you worked with ${esc(filter.trim())}?">Ask me anyway</button>`;
+  nm.hidden = false;
+}
+function renderSkills() {
+  $("skillgroups").innerHTML = groups.map(([n, list]) => `<div class="spot tilt"><h3>${n}</h3><div class="chips">${list.map(chip).join("")}</div></div>`).join("");
+  applyFilter();
+  const text = $("statusText"), clear = $("clear");
+  if (!skill) { text.textContent = "No skill selected."; clear.hidden = true; return; }
+  text.textContent = `${skill}: ${howUsed[skill] || "part of my everyday toolkit."}`;
+  clear.hidden = false;
+}
+$("skillFilter").addEventListener("input", e => { filter = e.target.value; applyFilter(); });
+$("skillFilter").addEventListener("keydown", e => { if (e.key === "Escape" && filter) { e.stopPropagation(); e.target.value = filter = ""; applyFilter(); } });
+function listJoin(a) { return a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a[0]; }
+function render() { renderPipeline(); renderPanel(); renderSkills(); }
+function select(i, focus) { current = (i + roles.length) % roles.length; render(); if (focus) pipeline.querySelector('[aria-selected="true"]').focus(); }
+pipeline.addEventListener("click", e => { const b = e.target.closest(".node"); if (b) select(+b.dataset.i, true); });
+pipeline.addEventListener("keydown", e => {
+  const map = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+  if (e.key in map) { e.preventDefault(); select(current + map[e.key], true); }
+  if (e.key === "Home") { e.preventDefault(); select(0, true); }
+  if (e.key === "End") { e.preventDefault(); select(roles.length - 1, true); }
+});
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-ask]");
+  if (a) { openChat(); submitText(a.dataset.ask); return; }
+  const c = e.target.closest(".chip");
+  if (!c) return;
+  const name = c.dataset.skill;
+  skill = skill === name ? null : name;
+  if (skill && !roles[current].skills.includes(skill)) {
+    for (let i = roles.length - 1; i >= 0; i--) if (roles[i].skills.includes(skill)) { current = i; break; }
+  }
+  render();
+  const again = document.querySelector(`#skillgroups .chip[data-skill="${CSS.escape(name)}"]`);
+  if (c.closest("#skillgroups") && again) again.focus();
+});
+$("clear").addEventListener("click", () => { skill = null; render(); });
+panel.addEventListener("click", e => {
+  const b = e.target.closest("[data-step]");
+  if (!b) return;
+  const dir = b.dataset.step;
+  select(current + +dir);
+  (panel.querySelector(`[data-step="${dir}"]:not(:disabled)`) || pipeline.querySelector('[aria-selected="true"]')).focus();
+});
+// Swipe the role card left or right on touch screens.
+let swipeX = null, swipeY = 0;
+panel.addEventListener("touchstart", e => { swipeX = e.touches[0].clientX; swipeY = e.touches[0].clientY; }, { passive: true });
+panel.addEventListener("touchend", e => {
+  if (swipeX === null) return;
+  const dx = e.changedTouches[0].clientX - swipeX, dy = e.changedTouches[0].clientY - swipeY;
+  swipeX = null;
+  if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  const n = current + (dx < 0 ? 1 : -1);
+  if (n >= 0 && n < roles.length) select(n);
+}, { passive: true });
+$("copy").addEventListener("click", async e => {
+  const btn = e.currentTarget;
+  try { await navigator.clipboard.writeText(EMAIL); btn.textContent = "Email address copied"; burst(btn); } catch { btn.textContent = EMAIL; }
+  setTimeout(() => { btn.textContent = "Copy email address"; }, 2500);
+});
+
+/* ---------- Built-in answers (used when no AI backend is connected, and as a fallback) ---------- */
+// The greeting that plays by itself when someone opens the page. Edit these lines freely.
+// If you make an intro video, have it say these same lines.
+function introScript() {
+  const h = new Date().getHours(), hi = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+  return [
+    visitorName ? `${hi}, ${visitorName}! Welcome back. It's Divya.` : `${hi}! I'm Divya. Thanks for stopping by.`,
+    "I'm an AI Data Engineer. I build the data pipelines that feed AI assistants.",
+    "Basically, I turn messy data into something AI can actually understand. Like a translator, but for spreadsheets.",
+    "I've worked on AWS, Azure and Google Cloud. Yes, all three. I don't play favorites with clouds.",
+    "I'm also a researcher, an IEEE member and a Society of Women Engineers member. I've published ten papers, and one of them won Best Paper.",
+    "Now keep me busy! Click me for fun facts, try the quick quiz below, or ask me anything."
+  ];
+}
+// Light jokes that pop up when a visitor goes quiet for a while.
+const jokes = [
+  "Still there? My pipelines never sit idle this long.",
+  "SQL walks into a bar, sees two tables and asks: may I join you?",
+  "Psst. The quiz below is only three questions. I believe in you.",
+  "Why was the data engineer so calm? They had a backup. Of the backup.",
+  "I'd tell you a UDP joke, but you might not get it.",
+  "Okay, I'll stop now. Ask me anything when you're ready."
+];
+const suggestions = ["What do you do at Vanguard?", "What research have you published?", "Which cloud platforms have you used?", "What AI work have you done?", "Why should we hire you?", "What roles are you looking for?", "What certifications do you have?"];
+
+// Specific topics first, general ones last: on a tie the earlier entry wins.
+const answers = [
+  { k: [/\bvisa\b/, /sponsor/, /work authori[sz]ation/, /\bh-?1b\b/, /green card/, /citizen/, /salary/, /\bpay\b/, /\brates?\b/, /compensation/, /\bctc\b/, /notice period/, /when can you (start|join)/, /availab/, /\bage\b/, /married/],
+    a: "That's something I'd rather discuss directly. Please email me using the button at the bottom of the page, and I'll reply personally." },
+  { k: [/research/, /papers?\b/, /publication/, /publish/, /ieee/, /springer/, /journal/, /conference/, /award/, /best paper/, /\bswe\b/, /women engineers/, /\bmember/, /glioma/, /emotion/, /robot/, /virtual reality/, /\bvr\b/, /fraud/, /cholera/, /diabet/, /waste/, /hype/],
+    a: "I'm a researcher as well as an engineer. I've published ten peer-reviewed papers in IEEE and Springer proceedings, on healthcare AI, data quality, fraud detection, waste management, robotics and speech. My paper on a virtual reality tele-operation system for mobile robots won Best Paper Presentation at IEEE ICIETDW 2024. I'm an IEEE member and a Society of Women Engineers member. All the papers are linked in the Research section." },
+  { k: [/vanguard/, /current (role|job|work|position|company|project)/, /currently/, /right now/, /day.to.day/, /these days/, /present (role|job)/],
+    a: "At Vanguard I build and run the data foundation behind AI assistants. That means pipelines on AWS with Glue, Redshift, Step Functions, Lambda and SageMaker, plus Spark applications and Power BI dashboards. I also evaluate AI assistants before release and mentor other data professionals." },
+  { k: [/eleventh/, /exports/, /imports/],
+    a: "At Eleventh Avenue Exports and Imports I was an AI Data Engineer from August 2024 to October 2025. I designed Azure pipelines with Data Factory and Data Lake, built RAG and AI agent solutions with Azure OpenAI, and set up Databricks Genie so people could query company data in plain English." },
+  { k: [/sri foods/, /\bsri\b/],
+    a: "At Sri Foods USA I was a Data Engineer in 2024. I built ETL pipelines with SQL, Python, dbt, AWS Glue and Airflow, ran workloads on Google Cloud, and delivered Power BI dashboards for executive, operations, procurement and finance teams." },
+  { k: [/freshworks/],
+    a: "At Freshworks I was a Big Data Engineer from June 2022 to August 2023. I built large-scale Spark applications in PySpark, implemented Medallion Architecture on Databricks, and tuned Spark jobs for performance." },
+  { k: [/healthify/, /intern/, /first job/],
+    a: "I started as a Data Engineering Intern at HealthifyMe in 2022. I helped build the data lake and warehouse on AWS, and set up real-time data sync with Talend, Kafka and Oracle change data capture." },
+  { k: [/\baws\b/, /amazon/, /\bglue\b/, /redshift/, /lambda/, /sagemaker/, /\bs3\b/, /step functions/, /cloudwatch/],
+    a: "AWS is the cloud I use most. At Vanguard I work with Glue, Redshift, Step Functions, Lambda, CloudWatch and SageMaker. I also used Glue at Sri Foods, and S3, Redshift and Glue at HealthifyMe." },
+  { k: [/azure/, /microsoft/, /data factory/, /\badf\b/],
+    a: "I used Azure at Eleventh Avenue. I built pipelines with Azure Data Factory and Azure Data Lake, and RAG and AI agent solutions with Azure OpenAI and Azure AI Foundry. I also applied data masking, encryption and auditing there." },
+  { k: [/\bgcp\b/, /google cloud/, /bigquery/],
+    a: "I used Google Cloud Platform at Sri Foods USA, where I built and ran data pipelines and analytics workloads alongside AWS." },
+  { k: [/cloud/, /platforms?/],
+    a: "I've worked on all three major clouds. AWS at Vanguard, Sri Foods and HealthifyMe. Azure at Eleventh Avenue. And Google Cloud at Sri Foods." },
+  { k: [/spark/, /pyspark/, /databricks/, /medallion/, /lakehouse/, /big data/],
+    a: "I write Spark applications at Vanguard, and at Freshworks I built large-scale PySpark jobs on Databricks using Medallion Architecture. I've tuned Spark with partitioning, caching, broadcast joins and skew mitigation, and I'm a Databricks Certified Data Engineer Associate." },
+  { k: [/\bai\b/, /\brag\b/, /\bllms?\b/, /gen ?ai/, /generative/, /agents?\b/, /agentic/, /langchain/, /langgraph/, /machine learning/, /\bml\b/, /vector/, /embedding/, /openai/, /\bgpt\b/, /chatbot/, /prompt/],
+    a: "My AI work is on the data side. At Vanguard I build the pipelines that feed RAG, vector search and embeddings, and I evaluate assistants and multi-agent workflows built with LangGraph and LangChain. At Eleventh Avenue I built RAG, document-intelligence and AI agent solutions on Azure OpenAI." },
+  { k: [/power ?bi/, /dashboards?/, /\bbi\b/, /business intelligence/, /analytics/, /analyst/, /analysis/, /report/, /\bkpis?\b/, /visuali[sz]/, /insights?/],
+    a: "I build Power BI dashboards and reports at Vanguard, and I did the same at Sri Foods for executive, operations, procurement and finance teams. I also define KPIs, and run forecasting, trend and root-cause analysis, then present the findings to non-technical audiences." },
+  { k: [/quality/, /validat/, /testing/, /reliab/, /idempotent/, /duplicate/, /accura/],
+    a: "Data quality runs through all my work. I build validation checks and reconciliation into pipelines, and I write incremental, idempotent loads so reruns never create duplicates." },
+  { k: [/airflow/, /\bdbt\b/, /orchestrat/, /\betl\b/, /\belt\b/, /pipelines?/, /kafka/, /talend/, /\bcdc\b/, /streaming/, /real.?time/, /warehouse/, /data model/],
+    a: "I build ETL and ELT pipelines with SQL, Python, PySpark and dbt, orchestrated with Apache Airflow. I've also worked with Kafka and Talend for change data capture, and with Snowflake and Delta Lake." },
+  { k: [/python/, /\bsql\b/, /programming/, /languages?/, /\bcod(e|ing)\b/, /scripting/],
+    a: "My main languages are SQL and Python, including PySpark. I use them for pipelines, Spark applications and automation that takes recurring reporting off people's plates." },
+  { k: [/certif/, /certificates?/],
+    a: "I have two certifications. Databricks Certified Data Engineer Associate, and Google Generative AI Leader." },
+  { k: [/educat/, /degree/, /universit/, /college/, /stud(y|ied)/, /master/, /bachelor/, /school/, /graduat/, /qualif/, /\bms\b/, /b\.?tech/],
+    a: "I have a master's in Computer Science from The University of Texas at Arlington, finished in December 2024, and a bachelor's in Computer Science from Bharat Institute of Engineering and Technology." },
+  { k: [/why (should|would|do) (we|i|they)/, /hire you/, /what makes you/, /stand out/, /strengths?/, /good fit/, /best at/, /unique/],
+    a: "I cover the whole path from raw data to a decision. I build reliable pipelines on any of the three major clouds, I turn the data into Power BI dashboards people use, and I prepare and evaluate the data behind AI assistants. I also explain technical work clearly to business teams." },
+  { k: [/projects?/, /built/, /achiev/, /accomplish/, /proud/, /impact/, /biggest/],
+    a: "A few things I've built. The data foundation behind AI assistants at Vanguard. RAG and AI agent solutions on Azure OpenAI at Eleventh Avenue. And Medallion Architecture pipelines on Databricks at Freshworks, with loads that can rerun without creating duplicates." },
+  { k: [/where/, /location/, /located/, /based/, /relocat/, /remote/, /hybrid/, /on.?site/, /houston/, /texas/, /\btx\b/, /\bcity\b/, /live/],
+    a: "I'm based in Houston, Texas, and I'm open to relocation. I'm happy to discuss remote, hybrid or on-site arrangements directly." },
+  { k: [/looking for/, /open to/, /kind of (role|job|work)/, /roles?\b/, /positions?/, /opportunit/, /hiring/, /interested in/, /next (job|role|step)/, /full.?time/, /contract/],
+    a: "I'm open to AI Data Engineer, Data Engineer, Data Analyst and BI roles, and I'm open to relocation. For contract or full-time details, please email me." },
+  { k: [/contact/, /e-?mail/, /reach/, /linkedin/, /get in touch/, /phone/, /\bcall\b/, /number/, /connect/, /interview/, /schedule/, /meet/],
+    a: "The best way to reach me is by email or LinkedIn. Both buttons are at the bottom of this page, and I reply quickly." },
+  { k: [/resume/, /\bcv\b/, /download/],
+    a: "This page is my resume in interactive form. If you'd like the PDF, email me and I'll send it right away." },
+  { k: [/mentor/, /\blead/, /team/, /collaborat/, /stakeholder/, /communicat/, /manage/],
+    a: "At Vanguard I mentor less-experienced data professionals and contribute to engineering standards. I work closely with business and compliance partners, and I present findings to both technical and non-technical audiences." },
+  { k: [/security/, /governance/, /compliance/, /masking/, /encrypt/, /privacy/],
+    a: "I've applied data masking, encryption and auditing on Azure to meet governance requirements, and at Vanguard I work with business and compliance partners to turn regulatory requirements into technical designs." },
+  { k: [/skills?/, /tools?\b/, /tech/, /stack/, /good at/, /speciali[sz]/, /expertise/, /know/],
+    a: "My core skills are SQL, Python, PySpark and Spark, with dbt and Airflow for pipelines. I work across AWS, Azure and Google Cloud, with Databricks and Snowflake. I also build Power BI dashboards and the data foundations for RAG and AI agents." },
+  { k: [/how (long|many years)/, /years/, /experience/, /career/, /worked/, /history/, /companies/, /employers?/, /previous/, /past/],
+    a: "I have nearly five years of experience. I started at HealthifyMe in 2022, then worked at Freshworks, Sri Foods USA and Eleventh Avenue Exports and Imports. I joined Vanguard in October 2025." },
+  { k: [/who are you/, /your name/, /about (you|yourself|divya)\b/, /introduc/, /yourself/, /summary/, /background/, /tell me/, /what do you do/, /profile/],
+    a: "I'm Divya Biradar, an AI Data Engineer with nearly five years of experience. I build ETL pipelines, Spark applications and Power BI dashboards, and I prepare the data behind AI assistants." },
+  { k: [/how are you/, /how('s| is) it going/],
+    a: "I'm doing well, thank you for asking. What would you like to know about my work?" },
+  { k: [/^(hi|hello|hey|hii+|namaste|good (morning|afternoon|evening))\b/, /thank/, /\bbye\b/, /nice to meet/],
+    a: "Thank you for stopping by. Ask me about my experience, my skills or the roles I'm looking for." }
+];
+const NO_ANSWER = "I'm not sure I have that on my resume. Try asking about my experience, cloud platforms, AI work or skills, or email me and I'll answer personally.";
+
+function findAnswer(q) {
+  const t = " " + q.toLowerCase().replace(/[^a-z0-9+#./' -]/g, " ") + " ";
+  let best = null, top = 0;
+  for (const e of answers) {
+    const score = e.k.filter(r => r.test(t.trim())).length;
+    if (score > top) { top = score; best = e; }
+  }
+  // A named tool beats a general answer: "Do you know Kubernetes?" should talk about Kubernetes.
+  const general = !best || /My core skills are|nearly five years of experience\. I started|I'm Divya Biradar, an AI/.test(best.a);
+  if (general) {
+    const names = [...new Set(roles.flatMap(r => r.skills))].sort((a, b) => b.length - a.length);
+    const hit = names.find(n => t.includes(" " + n.toLowerCase() + " ") || t.includes(" " + n.toLowerCase().replace(/^(aws|apache|azure) /, "") + " "));
+    if (hit) return { a: `Yes. I used ${hit} at ${listJoin(roles.filter(r => r.skills.includes(hit)).map(r => r.co))}.`, answered: true };
+    const also = alsoSkills.find(n => t.includes(n.toLowerCase()));
+    if (also) return { a: `Yes, ${also} is part of my toolkit, alongside ${listJoin(alsoSkills.filter(n => n !== also).slice(0, 3))}.`, answered: true };
+  }
+  return best ? { a: best.a, answered: true } : { a: NO_ANSWER, answered: false };
+}
+
+/* ---------- Visitor log ---------- */
+function uid() { return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); }
+let visitorId = store.get("dbp-visitor", null);
+if (!visitorId) { visitorId = uid(); store.set("dbp-visitor", visitorId); }
+let visitorName = store.get("dbp-name", "");
+function deviceName() {
+  const u = navigator.userAgent;
+  const os = /Windows/.test(u) ? "Windows" : /Android/.test(u) ? "Android" : /iPhone|iPad/.test(u) ? "iOS" : /Mac/.test(u) ? "Mac" : /Linux/.test(u) ? "Linux" : "Other";
+  const br = /Edg\//.test(u) ? "Edge" : /Chrome\//.test(u) ? "Chrome" : /Firefox\//.test(u) ? "Firefox" : /Safari\//.test(u) ? "Safari" : "Browser";
+  return br + " on " + os;
+}
+function pushLocal(key, row) { const a = store.get(key, []); a.unshift(row); store.set(key, a.slice(0, 300)); }
+async function send(payload, wait) {
+  if (!BACKEND) return null;
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), wait || 15000);
+  try {
+    // No Content-Type header on purpose: it keeps this a "simple" request, which Google Apps Script accepts.
+    const r = await fetch(BACKEND, { method: "POST", body: JSON.stringify(payload), signal: ctl.signal });
+    return await r.json();
+  } catch { return null; } finally { clearTimeout(t); }
+}
+(function logVisit() {
+  let seen = false;
+  try { seen = sessionStorage.getItem("dbp-seen") === "1"; sessionStorage.setItem("dbp-seen", "1"); } catch {}
+  if (seen) return;
+  let ref = "Direct";
+  try { if (document.referrer) ref = new URL(document.referrer).hostname || "Direct"; } catch {}
+  const row = { at: new Date().toISOString(), visitorId, name: visitorName, referrer: ref, device: deviceName() };
+  pushLocal("dbp-visits", row);
+  send({ action: "visit", ...row });
+})();
+
+/* ---------- Voice: one American English woman's voice, chosen automatically ---------- */
+const canSpeak = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let softVoice = null, voiceOn = canSpeak && store.get("dbp-voice-on", true);
+// American female voices, most natural first: Edge's neural voices, Chrome's Google voice,
+// then Apple's premium voices, then the standard ones.
+const US_FEMALE = [/ava.*online/i, /jenny.*online/i, /aria.*online/i, /emma.*online/i, /michelle.*online/i, /google us english/i,
+  /\bava\b/i, /\bzoe\b/i, /allison/i, /samantha/i, /susan/i, /nicky/i, /jenny/i, /aria/i, /zira/i];
+function loadVoices() {
+  const all = speechSynthesis.getVoices();
+  const us = all.filter(v => /^en[-_]us/i.test(v.lang));
+  // Premium and enhanced versions of the same voice sound more natural, so they win ties.
+  const score = v => { const i = US_FEMALE.findIndex(p => p.test(v.name)); return i < 0 ? 999 : i * 2 - (/premium|enhanced|natural/i.test(v.name) ? 1 : 0); };
+  const best = us.filter(v => score(v) < 999).sort((a, b) => score(a) - score(b))[0];
+  softVoice = best || us.find(v => /female|woman/i.test(v.name)) || null;
+}
+if (canSpeak) { loadVoices(); speechSynthesis.addEventListener("voiceschanged", loadVoices); }
+else $("voice").hidden = true;
+
+let token = 0, timer = null;
+const botEl = $("bot");
+function setTalking(on, label) {
+  document.body.classList.toggle("talking", on);
+  setMood(label === "Thinking" ? "thinking" : "smile");
+  $("botState").textContent = label || (on ? "Speaking" : "Ready for your question");
+  $("stopTalk").hidden = !(on && voiceOn);
+}
+function halt() { token++; clearTimeout(timer); if (canSpeak) speechSynthesis.cancel(); }
+// Speaks text sentence by sentence (or waits a reading pause when the voice is off or silent is set), then calls done.
+function speak(text, done, silent) {
+  const id = ++token;
+  const parts = text.match(/[^.!?]+[.!?]*/g) || [text];
+  let i = 0;
+  const step = () => {
+    if (id !== token) return;
+    clearTimeout(timer);
+    if (i >= parts.length) { done && done(); return; }
+    const part = parts[i++].trim();
+    if (!part) { step(); return; }
+    const readTime = 600 + part.length * 60;
+    let moved = false;
+    const next = () => { if (moved || id !== token) return; moved = true; step(); };
+    if (voiceOn && canSpeak && !silent) {
+      const u = new SpeechSynthesisUtterance(part);
+      u.lang = "en-US";
+      if (softVoice) u.voice = softVoice;
+      u.rate = 1; u.pitch = 1; u.volume = 1;
+      const began = Date.now();
+      // A browser with no working voice "finishes" instantly: give the text its reading time instead.
+      const ended = () => { if (Date.now() - began < 250) { clearTimeout(timer); timer = setTimeout(next, readTime); } else next(); };
+      u.onend = ended; u.onerror = ended;
+      speechSynthesis.speak(u);
+      timer = setTimeout(next, readTime * 2.6);
+    } else timer = setTimeout(next, voiceOn || silent ? readTime : Math.min(readTime, 900));
+  };
+  step();
+}
+function talk(text, done) { setTalking(true); speak(text, () => { setTalking(false); done && done(); }); }
+function paintVoice() { $("voice").setAttribute("aria-pressed", voiceOn); $("voice").textContent = voiceOn ? "Voice on" : "Voice off"; }
+paintVoice();
+$("voice").addEventListener("click", () => { voiceOn = !voiceOn; store.set("dbp-voice-on", voiceOn); paintVoice(); stopAll(); });
+$("stopTalk").addEventListener("click", stopAll);
+function stopAll() { halt(); stopHero(); setTalking(false); }
+
+/* ---------- Chat ---------- */
+const chat = $("chat"), input = $("askInput");
+let needName = !visitorName, busy = false;
+function bubble(text, who) {
+  const d = document.createElement("div");
+  d.className = "msg " + (who === "me" ? "me" : "bot-msg");
+  d.textContent = text;
+  chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+function typing() {
+  const d = document.createElement("div");
+  d.className = "msg bot-msg"; d.innerHTML = '<span class="typing" aria-label="Divya is typing"><i></i><i></i><i></i></span>';
+  chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+function paintSugs() {
+  const list = needName ? ["Skip, just let me ask"] : suggestions;
+  $("sugs").innerHTML = list.map(s => `<button type="button" class="sug">${esc(s)}</button>`).join("");
+  input.placeholder = needName ? "Type your name to begin" : "Ask me about my work";
+}
+function botSay(text, speakIt) { bubble(text, "bot"); if (speakIt) talk(text); }
+
+function setName(name) {
+  needName = false;
+  visitorName = name.replace(/\s+/g, " ").trim().slice(0, 60);
+  store.set("dbp-name", visitorName);
+  paintSugs();
+  if (visitorName) send({ action: "name", visitorId, name: visitorName });
+  botSay(visitorName ? `Lovely to meet you, ${visitorName}. Ask me anything about my work, or tap a suggestion below.`
+                     : "No problem. Ask me anything about my work, or tap a suggestion below.", true);
+}
+async function ask(q) {
+  busy = true; $("askBtn").disabled = true;
+  const local = findAnswer(q);
+  const dots = typing();
+  setTalking(true, "Thinking");
+  const started = Date.now();
+  const res = await send({ action: "ask", visitorId, name: visitorName, question: q, localAnswer: local.a, answered: local.answered });
+  const answer = (res && typeof res.answer === "string" && res.answer.trim()) ? res.answer.trim().slice(0, 1200) : local.a;
+  const source = res && res.source ? res.source : (local.answered ? "built-in" : "none");
+  await new Promise(r => setTimeout(r, Math.max(0, 650 - (Date.now() - started))));
+  dots.remove();
+  pushLocal("dbp-questions", { at: new Date().toISOString(), visitorId, name: visitorName, question: q, answer, source });
+  bubble(answer, "bot");
+  busy = false; $("askBtn").disabled = false;
+  talk(answer);
+}
+function submitText(text) {
+  text = String(text).trim().slice(0, 300);
+  if (!text || busy) return;
+  stopAll();
+  if (needName && /^skip/i.test(text)) { bubble("Skip", "me"); setName(""); return; }
+  bubble(text, "me");
+  // A first message that looks like a question is treated as one, not as a name.
+  if (needName && !/\?|\b(what|why|how|where|when|which|who|tell|do you|can you|are you)\b/i.test(text) && text.split(/\s+/).length <= 4) { setName(text); return; }
+  if (needName) { needName = false; paintSugs(); }
+  ask(text);
+}
+$("askForm").addEventListener("submit", e => { e.preventDefault(); const v = input.value; input.value = ""; submitText(v); });
+$("sugs").addEventListener("click", e => { const b = e.target.closest(".sug"); if (b) submitText(b.textContent); });
+
+
+/* ---------- Floating chat open and close ---------- */
+function openChat(focus) {
+  botEl.hidden = false; $("chatFab").hidden = true; $("chatFab").setAttribute("aria-expanded", "true");
+  chat.scrollTop = chat.scrollHeight;
+  if (focus) input.focus();
+}
+function closeChat() { botEl.hidden = true; $("chatFab").hidden = false; $("chatFab").setAttribute("aria-expanded", "false"); stopAll(); }
+$("chatFab").addEventListener("click", () => openChat(true));
+$("openChat").addEventListener("click", () => openChat(true));
+$("closeChat").addEventListener("click", () => { closeChat(); $("chatFab").focus(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !botEl.hidden) { closeChat(); $("chatFab").focus(); } });
+
+/* ---------- Cursor tracking: the character turns her head and eyes toward the pointer ---------- */
+const avatar = $("avatar"), rig = $("rig");
+let looks = null, idle = null;
+// Optional: nine pictures of your own character (see README) replace the drawn one.
+if (CFG.AVATAR_IMAGES) {
+  const box = document.createElement("div"); box.className = "looks";
+  const folder = CFG.AVATAR_FOLDER || "avatar/", ext = CFG.AVATAR_EXT || "png";
+  const imgs = Array.from({ length: 9 }, (_, i) => { const im = new Image(); im.alt = ""; im.src = `${folder}look-${i + 1}.${ext}`; box.appendChild(im); return im; });
+  imgs[4].classList.add("on");
+  imgs[4].addEventListener("load", () => { avatar.querySelector(".sway").hidden = true; avatar.appendChild(box); looks = imgs; });
+}
+const clamp1 = v => Math.max(-1, Math.min(1, v));
+function lookAt(nx, ny) {
+  if (looks) {
+    const col = nx < -0.22 ? 0 : nx > 0.22 ? 2 : 1, row = ny < -0.22 ? 0 : ny > 0.22 ? 2 : 1;
+    looks.forEach((im, i) => im.classList.toggle("on", i === row * 3 + col));
+  } else {
+    rig.style.setProperty("--ry", nx * 18 + "deg"); rig.style.setProperty("--rx", -ny * 7 + "deg");
+    rig.style.setProperty("--px", nx * 5 + "px"); rig.style.setProperty("--py", ny * 4 + "px");
+  }
+}
+document.addEventListener("pointermove", e => {
+  const r = avatar.getBoundingClientRect();
+  lookAt(clamp1((e.clientX - (r.left + r.width / 2)) / (innerWidth / 2)), clamp1((e.clientY - (r.top + r.height * 0.45)) / (innerHeight / 2)));
+  avatar.classList.add("tracking");
+  clearTimeout(idle);
+  idle = setTimeout(() => { avatar.classList.remove("tracking"); lookAt(0, 0); }, 4000);
+}, { passive: true });
+window.addEventListener("pagehide", () => { if (canSpeak) speechSynthesis.cancel(); });
+
+/* ---------- Interactive extras ---------- */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Click the character for a fun fact.
+const facts = [
+  "Hi! Click me again for another fact.",
+  "I've shipped pipelines on AWS, Azure and Google Cloud.",
+  "My loads are idempotent: rerun them all day, no duplicates.",
+  "Bronze, silver, gold: I speak fluent Medallion Architecture.",
+  "I'm a Databricks Certified Data Engineer Associate.",
+  "My paper on VR tele-operation for robots won Best Paper Presentation at IEEE ICIETDW '24.",
+  "I've published ten research papers with IEEE and Springer.",
+  "I set up Databricks Genie so people can ask data questions in plain English.",
+  "At Vanguard I feed RAG, vector search and embeddings for AI assistants.",
+  "Want the full story? Ask me a question in the chat."
+];
+let factI = 0, sayTimer = null;
+const sayEl = $("say"), sayLive = document.createElement("div");
+sayLive.className = "sr"; sayLive.setAttribute("aria-live", "polite"); document.body.appendChild(sayLive);
+// Shows a line next to the character, or in a small note by the chat button when the character is off screen.
+const nudgeEl = document.createElement("div");
+nudgeEl.className = "nudge"; nudgeEl.hidden = true;
+nudgeEl.innerHTML = '<span class="face" aria-hidden="true">D</span><p></p><button type="button" class="x" aria-label="Dismiss">&times;</button>';
+document.body.appendChild(nudgeEl);
+nudgeEl.querySelector(".x").addEventListener("click", () => { nudgeEl.hidden = true; });
+function avatarOnScreen() { const r = avatar.getBoundingClientRect(); return r.top < innerHeight * 0.6 && r.bottom > 120; }
+function show(text, ms) {
+  sayLive.textContent = text;
+  clearTimeout(sayTimer);
+  const hide = () => { sayEl.classList.remove("on"); avatar.classList.remove("talking"); nudgeEl.hidden = true; };
+  if (avatarOnScreen()) {
+    nudgeEl.hidden = true;
+    sayEl.textContent = text; sayEl.classList.add("on"); avatar.classList.add("talking");
+  } else if (botEl.hidden) {
+    sayEl.classList.remove("on");
+    nudgeEl.querySelector("p").textContent = text; nudgeEl.hidden = false;
+  }
+  if (ms) sayTimer = setTimeout(hide, ms);
+}
+const readMs = text => 2200 + text.length * 45;
+// Says a line out loud too, once the visitor has allowed sound and nothing else is speaking.
+function remark(text) {
+  show(text, readMs(text));
+  if (activated && voiceOn && !heroOn && !document.body.classList.contains("talking")) speak(text, () => avatar.classList.remove("talking"));
+}
+
+// Expressions: smile (default), happy, laugh, wink, surprised, thinking.
+let moodT = null;
+function setMood(m, ms) {
+  clearTimeout(moodT);
+  avatar.dataset.mood = m;
+  if (ms) moodT = setTimeout(() => { avatar.dataset.mood = "smile"; }, ms);
+}
+function wave() { avatar.classList.remove("waving"); void avatar.offsetWidth; avatar.classList.add("waving"); }
+avatar.addEventListener("animationend", e => { if (e.animationName === "wave") avatar.classList.remove("waving"); });
+avatar.addEventListener("pointerenter", () => { if (avatar.dataset.mood === "smile" && !heroOn) setMood("happy", 1400); });
+
+const pokeMoods = ["happy", "wink", "laugh", "surprised", "happy", "wink"];
+function poke() {
+  if (heroOn) return;
+  const text = facts[factI % facts.length];
+  setMood(pokeMoods[factI++ % pokeMoods.length], readMs(text));
+  if (factI % 3 === 1) wave();
+  show(text, readMs(text));
+  avatar.classList.remove("boing"); void avatar.offsetWidth; avatar.classList.add("boing");
+  setTimeout(() => avatar.classList.remove("talking"), 1400);
+}
+avatar.addEventListener("click", poke);
+avatar.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); poke(); } });
+
+/* ---------- Greeting that starts by itself ---------- */
+// Browsers block sound until the visitor clicks or presses a key, so the greeting starts with
+// captions and a moving mouth, and switches to voice the moment they interact.
+let heroOn = false, heroI = 0, activated = false, vid = null, idleOk = false;
+const INTRO_VIDEO = CFG.INTRO_VIDEO || "avatar/intro.mp4", IDLE_VIDEO = CFG.IDLE_VIDEO || "avatar/idle.mp4";
+function heroLine() {
+  if (!heroOn) return;
+  const lines = introScript();
+  if (heroI >= lines.length) { finishHero(); return; }
+  const line = lines[heroI];
+  if (heroI === 0) { wave(); setMood("happy", 2600); }
+  if (heroI === lines.length - 1) setMood("wink", 2600);
+  show(line, 0);
+  speak(line, () => { heroI++; avatar.classList.remove("talking"); timer = setTimeout(heroLine, 450); }, !(activated && voiceOn));
+}
+function startHero() {
+  halt(); nudgeEl.hidden = true;
+  heroOn = true; heroI = 0;
+  $("playIntro").textContent = "Stop introduction";
+  if (vid) { playVideo(activated); return; }
+  heroLine();
+}
+function finishHero() {
+  heroOn = false;
+  $("playIntro").textContent = "Replay my introduction";
+  clearTimeout(sayTimer);
+  sayTimer = setTimeout(() => { sayEl.classList.remove("on"); avatar.classList.remove("talking"); nudgeEl.hidden = true; }, 5000);
+}
+function stopHero() {
+  if (!heroOn) return;
+  if (vid) toIdle();
+  finishHero();
+  sayEl.classList.remove("on"); avatar.classList.remove("talking"); nudgeEl.hidden = true;
+}
+$("playIntro").addEventListener("click", () => { if (heroOn) stopAll(); else startHero(); });
+
+// Optional lip-synced intro video (avatar/intro.mp4) and a silent looping idle clip (avatar/idle.mp4).
+function playVideo(withSound) {
+  vid.loop = false;
+  if (vid.dataset.which !== "intro") { vid.src = INTRO_VIDEO; vid.dataset.which = "intro"; }
+  vid.currentTime = 0; vid.muted = !withSound;
+  vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
+}
+function toIdle() {
+  if (!vid) return;
+  if (idleOk) { vid.src = IDLE_VIDEO; vid.dataset.which = "idle"; vid.loop = true; vid.muted = true; vid.play().catch(() => {}); }
+  else vid.pause();
+}
+function findVideo(cb) {
+  let done = false;
+  const finish = ok => { if (!done) { done = true; cb(ok); } };
+  const v = document.createElement("video");
+  v.className = "vid"; v.muted = true; v.playsInline = true; v.preload = "auto"; v.setAttribute("aria-hidden", "true");
+  v.addEventListener("loadeddata", () => {
+    vid = v; v.dataset.which = "intro"; avatar.classList.add("has-video"); avatar.appendChild(v);
+    v.addEventListener("ended", () => { if (vid.dataset.which !== "intro") return; toIdle(); const l = introScript(); finishHero(); show(l[l.length - 1], 6000); });
+    finish(true);
+  }, { once: true });
+  v.addEventListener("error", () => finish(false), { once: true });
+  v.src = INTRO_VIDEO;
+  setTimeout(() => finish(false), 2500);
+  const t = document.createElement("video");
+  t.muted = true; t.preload = "metadata"; t.src = IDLE_VIDEO;
+  t.addEventListener("loadedmetadata", () => { idleOk = true; if (vid && !heroOn && vid.dataset.which === "intro" && vid.paused) toIdle(); }, { once: true });
+}
+
+// The first click or key press anywhere turns sound on.
+const hearBtn = $("hearMe");
+function activate(e) {
+  if (activated) return;
+  activated = true; hearBtn.hidden = true;
+  const t = e.target.closest ? e.target : document.body;
+  const wantsVoice = t.closest("#hearMe, #avatar") || !t.closest("a, button, input, select, textarea, [role=button]");
+  if (t.closest("#hearMe") && !voiceOn) { voiceOn = true; store.set("dbp-voice-on", true); paintVoice(); }
+  if (!heroOn || !wantsVoice) return;
+  if (vid) { vid.muted = false; vid.currentTime = 0; vid.play().catch(() => {}); }
+  else if (voiceOn) { halt(); heroLine(); }
+}
+addEventListener("pointerup", activate, true);
+addEventListener("keydown", activate, true);
+hearBtn.addEventListener("click", () => { hearBtn.hidden = true; if (!heroOn) startHero(); });
+if (!canSpeak) hearBtn.hidden = true;
+
+let introSeen = false;
+try { introSeen = sessionStorage.getItem("dbp-intro") === "1"; sessionStorage.setItem("dbp-intro", "1"); } catch {}
+findVideo(hasVideo => {
+  if (hasVideo) { hearBtn.hidden = false; hearBtn.textContent = "🔊 Tap for sound"; }
+  if (!introSeen) setTimeout(startHero, hasVideo ? 0 : 900);
+  else if (vid) toIdle();
+});
+
+/* ---------- Idle jokes ---------- */
+let lastAct = Date.now(), jokeI = 0;
+["pointermove", "scroll", "keydown", "touchstart"].forEach(t => addEventListener(t, () => { lastAct = Date.now(); }, { passive: true }));
+setInterval(() => {
+  // The quiet timer only runs while nothing else is happening.
+  if (document.hidden || heroOn || busy || !botEl.hidden || document.body.classList.contains("talking")) { lastAct = Date.now(); return; }
+  if (jokeI < jokes.length && Date.now() - lastAct > 22000) { lastAct = Date.now(); setMood(jokeI % 2 ? "wink" : "laugh", 4000); remark(jokes[jokeI++]); }
+}, 1000);
+
+/* ---------- Quiz ---------- */
+const quiz = [
+  { q: "Which clouds have I built data pipelines on?", opts: ["Just AWS", "AWS and Azure", "AWS, Azure and Google Cloud", "The fluffy white ones"], a: 2,
+    right: "Correct! All three. I don't play favorites with clouds.",
+    wrong: { 3: "Ha! Those only store rain. The answer is AWS, Azure and Google Cloud.", def: "Close! It's all three: AWS, Azure and Google Cloud." } },
+  { q: "My pipelines are idempotent. What does that mean?", opts: ["They're very confident", "Rerunning them never creates duplicates", "They only run on Tuesdays", "It's a type of Italian pasta"], a: 1,
+    right: "Exactly! Rerun them all day and the data stays clean.",
+    wrong: { 3: "Delicious guess, but no. It means reruns never create duplicates.", def: "Nice try! It means rerunning them never creates duplicates." } },
+  { q: "Where am I based?", opts: ["Inside a Spark cluster", "Houston, Texas", "The cloud, literally", "Wherever the Wi-Fi is strongest"], a: 1,
+    right: "Yes! Houston, Texas, and I'm open to relocation.",
+    wrong: { def: "Tempting, but I'm in Houston, Texas, and open to relocation." } }
+];
+let qi = 0, qScore = 0;
+const quizBox = $("quizBox");
+function renderQuiz() {
+  if (qi < quiz.length) {
+    const item = quiz[qi];
+    quizBox.innerHTML = `<p class="q-count">Question ${qi + 1} of ${quiz.length}</p><h3>${esc(item.q)}</h3>
+      <div class="q-opts">${item.opts.map((o, i) => `<button type="button" class="q-opt" data-o="${i}">${esc(o)}</button>`).join("")}</div>
+      <p class="q-say"></p>`;
+    return;
+  }
+  const msg = qScore === quiz.length ? "Perfect score! You're hired. Wait, that's my line."
+    : qScore === quiz.length - 1 ? "So close! Ask me anything in the chat to fill the gap."
+    : "No worries, that's what the chat is for. Ask me anything.";
+  quizBox.innerHTML = `<p class="q-count">Your score</p><p class="q-score">${qScore} / ${quiz.length}</p><h3>${esc(msg)}</h3>
+    <div class="q-foot"><button type="button" class="btn" data-ask="Tell me about yourself">Ask me a question</button>
+    <button type="button" class="btn ghost" data-qagain>Try again</button></div>`;
+  setMood(qScore === quiz.length ? "laugh" : qScore ? "happy" : "wink", 4000);
+  if (qScore === quiz.length) wave();
+  remark(msg);
+  if (qScore === quiz.length) burst(quizBox.querySelector(".q-score"));
+}
+quizBox.addEventListener("click", e => {
+  const o = e.target.closest(".q-opt");
+  if (o && !o.disabled) {
+    const i = +o.dataset.o, item = quiz[qi], ok = i === item.a;
+    if (ok) qScore++;
+    quizBox.querySelectorAll(".q-opt").forEach((b, j) => { b.disabled = true; if (j === item.a) b.classList.add("right"); });
+    if (!ok) o.classList.add("wrong");
+    const msg = ok ? item.right : (item.wrong[i] || item.wrong.def);
+    setMood(ok ? "happy" : "surprised", 3000);
+    const say = quizBox.querySelector(".q-say");
+    say.textContent = msg;
+    say.insertAdjacentHTML("afterend", `<div class="q-foot"><button type="button" class="btn" data-qnext>${qi === quiz.length - 1 ? "See my score" : "Next question"}</button></div>`);
+    quizBox.querySelector("[data-qnext]").focus();
+    if (activated && voiceOn && !document.body.classList.contains("talking")) { halt(); speak(msg); }
+    return;
+  }
+  if (e.target.closest("[data-qnext]")) { qi++; renderQuiz(); (quizBox.querySelector(".q-opt") || quizBox.querySelector(".btn")).focus(); }
+  if (e.target.closest("[data-qagain]")) { qi = 0; qScore = 0; renderQuiz(); quizBox.querySelector(".q-opt").focus(); }
+});
+renderQuiz();
+
+/* ---------- Research papers and certificates ---------- */
+let pubFilter = "all";
+function renderPapers() {
+  const list = papers.filter(p => pubFilter === "all" || (pubFilter === "award" ? p.award : p.pub === pubFilter));
+  $("papers").innerHTML = list.map(p => {
+    const where = p.pub === "IEEE" ? "IEEE Xplore" : "SpringerLink";
+    const title = p.title || `${where} paper ${p.url.split("/").pop()}`;
+    return `<article class="paper spot${p.award ? " won" : ""}">
+      <div class="tags"><span class="tag ${p.pub}">${p.pub}</span>${p.year ? `<span class="tag ${p.pub}">${p.year}</span>` : ""}${p.award ? `<span class="tag award">🏆 ${esc(p.award)}</span>` : ""}</div>
+      <h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(title)}</a></h3>
+      <p class="venue">${esc(p.venue)}</p>
+      <div class="acts"><a href="${esc(p.url)}" target="_blank" rel="noopener">Read on ${where} <span aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span></a>
+        ${p.cert !== undefined ? `<button type="button" class="linkish" data-cert="${p.cert}">View certificate</button>` : ""}</div>
+    </article>`;
+  }).join("");
+}
+$("pubFilter").addEventListener("click", e => {
+  const b = e.target.closest("[data-f]");
+  if (!b) return;
+  pubFilter = b.dataset.f;
+  $("pubFilter").querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderPapers();
+});
+$("certs").innerHTML = certificates.map((c, i) =>
+  `<button type="button" class="cert" data-cert="${i}"><img src="${c.src}" alt="" loading="lazy"><span>${esc(c.label)}</span></button>`).join("");
+
+const viewer = $("viewer");
+let certI = 0, certOpener = null;
+function showCert(i) {
+  certI = (i + certificates.length) % certificates.length;
+  const c = certificates[certI];
+  $("viewerImg").src = c.src; $("viewerImg").alt = "Certificate: " + c.label;
+  $("viewerTitle").textContent = c.label;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-cert]");
+  if (!b) return;
+  certOpener = b; showCert(+b.dataset.cert);
+  if (viewer.showModal) viewer.showModal(); else window.open(certificates[certI].src, "_blank");
+});
+$("viewerPrev").addEventListener("click", () => showCert(certI - 1));
+$("viewerNext").addEventListener("click", () => showCert(certI + 1));
+$("viewerClose").addEventListener("click", () => viewer.close());
+viewer.addEventListener("click", e => { if (e.target === viewer) viewer.close(); });
+viewer.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") showCert(certI - 1);
+  if (e.key === "ArrowRight") showCert(certI + 1);
+  if (e.key === "Escape") e.stopPropagation();
+});
+viewer.addEventListener("close", () => { if (certOpener) certOpener.focus(); });
+renderPapers();
+
+// Typewriter tagline.
+const phrases = ["the data pipelines behind AI assistants.", "Spark applications that crunch big data.", "Power BI dashboards people actually use.", "RAG-ready data on AWS, Azure and GCP."];
+if (!reduce) {
+  const rot = $("rot");
+  let p = 0, txt = phrases[0], deleting = true;
+  const tick = () => {
+    if (deleting) {
+      txt = txt.slice(0, -1);
+      if (!txt) { deleting = false; p = (p + 1) % phrases.length; }
+      rot.textContent = txt; setTimeout(tick, 26);
+    } else {
+      txt = phrases[p].slice(0, txt.length + 1);
+      rot.textContent = txt;
+      if (txt === phrases[p]) { deleting = true; setTimeout(tick, 2600); } else setTimeout(tick, 48);
+    }
+  };
+  setTimeout(tick, 3200);
+}
+
+// Count-up stats.
+const yearsIn = (Date.now() - Date.UTC(2022, 0, 1)) / (365.25 * 864e5);
+document.querySelectorAll("[data-count]").forEach(el => {
+  const end = el.dataset.count === "years" ? yearsIn : +el.dataset.count, dec = +(el.dataset.dec || 0);
+  const fmt = v => v.toFixed(dec);
+  if (reduce) { el.textContent = fmt(end); return; }
+  el.textContent = fmt(0);
+  const t0 = performance.now() + 400, dur = 1400;
+  const step = now => {
+    const k = Math.min(1, Math.max(0, (now - t0) / dur));
+    el.textContent = fmt(end * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+});
+
+// Scroll progress bar.
+const progress = $("progress");
+let ticking = false;
+function paintProgress() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.setProperty("--p", max > 0 ? Math.min(1, scrollY / max) : 0);
+  ticking = false;
+}
+addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(paintProgress); } }, { passive: true });
+paintProgress();
+
+if ("IntersectionObserver" in window) {
+  // Compact nav appears once the hero scrolls away.
+  const dock = $("dock");
+  new IntersectionObserver(([e]) => {
+    const show = !e.isIntersecting;
+    dock.classList.toggle("show", show); dock.inert = !show;
+  }, { rootMargin: "-80px 0px 0px 0px" }).observe(document.querySelector(".band"));
+
+  // Highlight the section being read.
+  const links = document.querySelectorAll('.dock a[href^="#"], .pillnav a[href^="#"]');
+  const spy = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    links.forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) links.forEach(a => a.setAttribute("aria-current", "false")); }, { rootMargin: "-45% 0px -50% 0px" })
+    .observe(document.querySelector(".band"));
+
+  // Reveal sections as they scroll in, and start the timeline line when it's visible.
+  if (!reduce) {
+    document.documentElement.classList.add("motion");
+    const items = document.querySelectorAll("main h2, main .lede, .pipeline, .panel, .skill-tools, #status, #skillgroups, .pub-filter, .papers, .certs-title, .certs, .quiz, .also, .two > div, .contact");
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in", "go"); io.unobserve(e.target);
+    }), { rootMargin: "0px 0px -8% 0px" });
+    items.forEach(el => {
+      const sib = [...el.parentElement.children].indexOf(el);
+      el.classList.add("reveal"); el.style.setProperty("--d", Math.min(sib, 4) * 0.08 + "s"); io.observe(el);
+    });
+  }
+}
+
+// Cursor spotlight on cards, and a gentle tilt on the skill cards.
+document.addEventListener("pointermove", e => {
+  const card = e.target.closest && e.target.closest(".spot");
+  if (!card) return;
+  const r = card.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  card.style.setProperty("--mx", x + "px"); card.style.setProperty("--my", y + "px");
+  if (!reduce && e.pointerType === "mouse" && card.classList.contains("tilt")) {
+    card.style.setProperty("--ty", ((x / r.width) - 0.5) * 6 + "deg");
+    card.style.setProperty("--tx", (0.5 - (y / r.height)) * 6 + "deg");
+  }
+}, { passive: true });
+document.addEventListener("pointerout", e => {
+  const card = e.target.closest && e.target.closest(".tilt");
+  if (card && !card.contains(e.relatedTarget)) { card.style.setProperty("--tx", "0deg"); card.style.setProperty("--ty", "0deg"); }
+});
+
+// A little confetti when the email address is copied.
+function burst(el) {
+  if (reduce || !el.animate) return;
+  const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const colors = ["#FFFFFF", "#FFD166", "#FF8FAB", "#B5E8FF"];
+  for (let i = 0; i < 26; i++) {
+    const s = document.createElement("span");
+    s.className = "bit"; s.style.left = cx + "px"; s.style.top = cy + "px"; s.style.background = colors[i % colors.length];
+    document.body.appendChild(s);
+    const a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 100;
+    s.animate([
+      { transform: "translate(-50%, -50%)", opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(a) * d}px), calc(-50% + ${Math.sin(a) * d + 50}px)) rotate(${Math.random() * 540}deg)`, opacity: 0 }
+    ], { duration: 800 + Math.random() * 500, easing: "cubic-bezier(.2,.7,.3,1)" }).onfinish = () => s.remove();
+  }
+}
+
+// Press "/" anywhere to open the chat.
+document.addEventListener("keydown", e => {
+  if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target.closest && e.target.closest("input, textarea, select, [contenteditable]")) return;
+  e.preventDefault(); openChat(true);
+});
+
+paintSugs();
+bubble(visitorName ? `Welcome back, ${visitorName}. What would you like to know about my work?`
+                   : "Hi, I'm Divya. Before we start, what's your name?", "bot");
+render();
+</script>
+</body>
+</html>
